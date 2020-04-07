@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php $this->load->view('libraries/libraries')?>
-
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>/css/estilos.css">
     <title>Login</title>
 </head>
 <body>
 
 <div class="container">
+<br>
         <div class="row  justify-content-center align-items-center minh-100  " >
                 
                     <div class="col-md-8 col-lg-6 col-xl-4">
@@ -51,8 +52,9 @@
                                                             <?php session_unset(); } ?>
 
                                                 </div>
-                                                <div class="row">
-                                                </div>
+                                                <div class="row  justify-content-center">
+                                                 <img height="180px" src="<?php echo base_url("/images/informateU.png")?>"> </img>
+                                                </div><br>
                                                 <div class="row">
                                                     <div id="messages-error"><?php  echo  form_error ( 'usuario' );  ?></div>
                                                     <input type="text" name="email" placeholder="Nombre de Usuario o email" class="form-control form-control" >
@@ -92,5 +94,6 @@
                     
         </div>
     </div>
+    <br>
 </body>
 </html>

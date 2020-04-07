@@ -11,35 +11,44 @@ class Welcome extends CI_Controller {
 	}
 	public function login()
 	{
-			$this->form_validation->set_rules('email','Nombre de usuario o email','required');
-			$this->form_validation->set_rules('clave','Password','required');
-			if($this->form_validation->run()==false){
-			$this->load->view('login');
-			}
-			else{
-	        $this->load->model('queries');    	   
-			$email=$this->input->post('email');				
-			$clave=$this->input->post('clave');
-			$ValidationLogin=$this->queries->Validation_login($email,$clave);
-			$isActivatedUser=$this->queries->isActivatedUser($email);
-			    if($ValidationLogin){
-						if($isActivatedUser){
-						 $this->load->view('index');
-						 $this->session-> set_userdata ('email',$email);
+    	$this->load->helper('Autenticate');
+		$Auth= Auth();
+		if($Auth){
+		 redirect('Welcome');
+		}
+		else{
+						$this->form_validation->set_rules('email','Nombre de usuario o email','required');
+						$this->form_validation->set_rules('clave','Password','required');
+						if($this->form_validation->run()==false){
+						$this->load->view('login');
 						}
 						else{
-							$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora sera eliminada.';
-							redirect('Welcome/login');
-						}
-				}
-				else{
-					$_SESSION['message2'] = 'Usuario/email o clave incorrectas';
-					redirect('Welcome/login');
+						$this->load->model('queries');    	   
+						$email=$this->input->post('email');				
+						$clave=$this->input->post('clave');
+						$ValidationLogin=$this->queries->Validation_login($email,$clave);
+						$isActivatedUser=$this->queries->isActivatedUser($email);
+							if($ValidationLogin){
+									if($isActivatedUser){
+								    session_start();
+									$_SESSION['email']=$email;	
+									redirect('Welcome');					
+									}
+									else{
+										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora sera eliminada.';
+										redirect('Welcome/login');
+									}
+							}
+							else{
+								$_SESSION['message2'] = 'Usuario/email o clave incorrectas';
+								redirect('Welcome/login');
 
-				}	
-				
+							}	
+							
 
-			}
+						}		
+		}
+			
 				 		         
 	}
 	
@@ -56,59 +65,73 @@ class Welcome extends CI_Controller {
 	
 	public function register()
 	{            
-				
-				$this->form_validation->set_rules('email','Email','required|valid_email|is_unique[usuarios.email]|max_length[60]');
-				$this->form_validation->set_rules('nombre','Nombre','required|callback_alpha_dash_space|max_length[60]');
-				$this->form_validation->set_rules('apellidos','Apellido','required|callback_alpha_dash_space|max_length[60]');
+		$this->load->helper('Autenticate');
+		$Auth= Auth();
+		if($Auth){
+			redirect('Welcome');
+		}
+		else{
+					$this->form_validation->set_rules('email','Email','required|valid_email|is_unique[usuarios.email]|max_length[60]');
+					$this->form_validation->set_rules('nombre','Nombre','required|callback_alpha_dash_space|max_length[60]');
+					$this->form_validation->set_rules('apellidos','Apellido','required|callback_alpha_dash_space|max_length[60]');
 
-				$this->form_validation->set_rules('usuario','Usuario','required|min_length[5]|max_length[30]|is_unique[usuarios.usuario]|alpha_numeric');
-				$this->form_validation->set_rules('clave','Clave','required|min_length[5]|max_length[50]');
-				$this->form_validation->set_rules('cclave',' Confirmar clave','required|matches[clave]');
-				if($this->form_validation->run()==false){
-					$this->load->view('register');
-				}
-				else{
-					$this->load->helper('quitarespacio');
-					$this->load->helper('generateToken');
-					$this->load->model('insert');
-					$email=$this->input->post("email"); 
-					$nombre =Quitar_EspaciosNombre($this->input->post("nombre"));
-					$apellidos =Quitar_EspaciosApellido($this->input->post("apellidos"));
-                    $usuario =$this->input->post("usuario");
-                    $clave =$this->input->post("clave");
-				    $TokenActivate=generateToken();
-					$result=$this->insert->InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$TokenActivate);
-					if($result){
-						$this->load->model('queries');
-						$this->load->model('events');
-						$this->load->model('sendemail');
-						$this->events->EventDeleteUser($usuario);
-						$row=$this->queries->GetFilasUser($email)->row();
-						$iduser=$row->iduser;
-						$emailDB=$row->email;
-						$this->sendemail->SendValidationUser($emailDB,$TokenActivate,$iduser);
-						redirect('Welcome/login');
+					$this->form_validation->set_rules('usuario','Usuario','required|min_length[5]|max_length[30]|is_unique[usuarios.usuario]|alpha_numeric');
+					$this->form_validation->set_rules('clave','Clave','required|min_length[5]|max_length[50]');
+					$this->form_validation->set_rules('cclave',' Confirmar clave','required|matches[clave]');
+					if($this->form_validation->run()==false){
+						$this->load->view('register');
 					}
 					else{
-						echo "Ha ocurrido un error durante el registro";
+						$this->load->helper('quitarespacio');
+						$this->load->helper('generateToken');
+						$this->load->model('insert');
+						$email=$this->input->post("email"); 
+						$nombre =Quitar_EspaciosNombre($this->input->post("nombre"));
+						$apellidos =Quitar_EspaciosApellido($this->input->post("apellidos"));
+						$usuario =$this->input->post("usuario");
+						$clave =$this->input->post("clave");
+						$TokenActivate=generateToken();
+						$result=$this->insert->InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$TokenActivate);
+						if($result){
+							$this->load->model('queries');
+							$this->load->model('events');
+							$this->load->model('sendemail');
+							$this->events->EventDeleteUser($usuario);
+							$row=$this->queries->GetFilasUser($email)->row();
+							$iduser=$row->iduser;
+							$emailDB=$row->email;
+							$this->sendemail->SendValidationUser($emailDB,$TokenActivate,$iduser);
+							redirect('Welcome/login');
+						}
+						else{
+							echo "Ha ocurrido un error durante el registro";
+						}
+					
 					}
+		}
 				
-				}
 	}
 	public function recover()
 	{
-				$this->form_validation->set_rules('email','Email','required|valid_email');
-				if($this->form_validation->run()==false){
-					$this->load->view('recover');
-				}
-				else{
+
+		$this->load->helper('Autenticate');
+		$Auth= Auth();
+		if($Auth){
+			redirect('Welcome');
+		}
+		else{
+			$this->form_validation->set_rules('email','Email','required|valid_email');
+			if($this->form_validation->run()==false){
+				$this->load->view('recover');
+			}
+			else{
 						$this->load->model('queries');
 						$email=$this->input->post('email');
 						$existDB=$this->queries->email_existDB();
 						$ValidationTime=$this->queries->ValidationTimeRecover();
 						$isActivatedUser=$this->queries->isActivatedUser($email);
 						if($existDB) {
-						    if($isActivatedUser){
+							if($isActivatedUser){
 								if($ValidationTime){
 									$this->load->model('sendemail');
 									$this->load->model('update');
@@ -127,7 +150,7 @@ class Welcome extends CI_Controller {
 							}
 							else{
 								$_SESSION['message10'] = 'La cuenta no esta activada, por favor activela';
-                                 redirect('Welcome/recover');
+								redirect('Welcome/recover');
 							}
 
 						
@@ -138,51 +161,36 @@ class Welcome extends CI_Controller {
 								redirect('Welcome/recover');
 						}
 					}
+		}
+				
 								
-		     }
+}
 
 	public function recoverpass()
 	{  
-				$this->load->model('queries');
-				$validation=$this->queries->ValidationURL();
+		$this->load->helper('Autenticate');
+		$Auth= Auth();
+		if($Auth){
+			$this->load->view('index');
+		}
+		else{
+
+                    
+			redirect('Welcome/error404');
+		}
 				
-				if($validation){
-						$this->form_validation->set_rules('clave','Clave','required|min_length[5]|max_length[50]');
-						$this->form_validation->set_rules('cclave',' Confirmar clave','required|matches[clave]');
-						if($this->form_validation->run()==false){
-						$this->load->view('recoverpass');
-						}
-						else{
-							$this->load->model('sendemail');
-							$this->load->model('update');
-							$this->sendemail->SendPasswordchanged();
-							$result=$this->update->updatePassword();
-
-							if($result){
-								
-								$_SESSION['message6'] = 'Hemos reestablecido tu contraseña, Inicia Sesion';
-								redirect('Welcome/login');
-							
-
-							}
-							else{
-								redirect('Welcome/error404');
-							}
-
-					
-					}
-				}
-
-				else{
-					redirect('welcome/error404');
-				}
 	}
 	
 	public function index()
 	{
-	
-		$this->load->view('index');
-
+		$this->load->helper('Autenticate');
+		$Auth= Auth();
+		if($Auth){
+			$this->load->view('index');
+		}
+		else{
+			redirect('Welcome/login');
+		}
 
 	}
 	public function AccountActivated()
@@ -199,8 +207,14 @@ class Welcome extends CI_Controller {
 	}
 	public function error404()
 	{
-				
-				$this->load->view('erros/html/error_404');
+	    $this->load->view('erros/html/error_404');
+
+	}
+	public function logout()
+	{
+		$this->session->set_userdata('email');
+		 $this->session->sess_destroy();
+		 redirect('Welcome/login');
 
 	}
 }

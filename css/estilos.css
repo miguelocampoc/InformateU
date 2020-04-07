@@ -23,4 +23,31 @@
     #padding-form{
     padding:14%;
     }
+    #form-profile-options{
+      color: red;
+      border-color:Red;
+    }
+    #img-profile{
+    width:300px;
+    height:300px;
+    border-radius:150px;
+
+    text-align: center;
+    }
+    #div-img{
+      text-align: center;
+      margin-top:10%;
+      }
     
+     #botton-profile{
+       width:350px;
+     }
+     #botton-profile2{
+      width:45%;
+    }
+    @media screen and (max-width:800px ) {
+       
+    #botton-profile2{
+      width:100%;
+      }
+  }
