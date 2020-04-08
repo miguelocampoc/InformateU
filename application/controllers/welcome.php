@@ -35,7 +35,7 @@ class Welcome extends CI_Controller {
 									redirect('Welcome');					
 									}
 									else{
-										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora sera eliminada.';
+										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora apartir del tiempo de registro tu cuenta sera eliminada.';
 										redirect('Welcome/login');
 									}
 							}
@@ -168,15 +168,32 @@ class Welcome extends CI_Controller {
 
 	public function recoverpass()
 	{  
-		$this->load->helper('Autenticate');
-		$Auth= Auth();
-		if($Auth){
-			$this->load->view('index');
+		$this->load->model('queries');
+		$validationURL=$this->queries->ValidationURL();
+		if($validationURL){
+			            $this->form_validation->set_rules('clave','Clave','required');
+						$this->form_validation->set_rules('cclave','Confirmar clave','required|matches[clave]');
+						if($this->form_validation->run()==false){
+						$this->load->view('recoverpass');
+						}
+						else{
+							$clave=$this->input->post("clave"); 
+							$this->load->model('update');
+							$result=$this->update->updatePassword();
+							 if($result){
+							  $this->load->model('sendemail');
+							  $this->sendemail->SendPasswordchanged();
+                              redirect('Welcome/login');
+							 }
+							 else{
+                              echo "no se pudo reestablecer su contraseña, intente de nuevo";
+							 }
+
+						}
 		}
 		else{
-
+            redirect('Welcome/error404');
                     
-			redirect('Welcome/error404');
 		}
 				
 	}

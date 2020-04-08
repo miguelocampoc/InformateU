@@ -72,25 +72,59 @@
                                                   <div class="row">
                                                       <div class="col-md-12">
                                                         <div class="list-group" id="list-tab" role="tablist">
-                                                        <a class="list-group-item list-group-item-action active" href="" >Tus datos</a>
-                                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAjustes" >Ajustes email y contraseña</a>
-                                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAsignatura" >Asignaturas</a>
+                                                        <a class="list-group-item list-group-item-action " href="<?php  echo base_url()?>index.php/user/profile" >Tus datos</a>
+                                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAjustes">Ajustes email y contraseña</a>
+                                                        <a class="list-group-item list-group-item-action active"  href="" >Asignaturas</a>
                                                         </div>
                                                        </div>
                                                   </div>
                                         </div>
                                                 <div class="col-md-8">
                                             
-                                                    <div class="tab-content" id="nav-tabContent">
+                                                  
                                                         <div class="row">
-                                                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                                                            <?php $this->load->view('profile/tusdatos') ?>
+                                                          <div class="col-md-12">
+                                                           <p style="font-size:18px">Elije tus asignaturas</p>
+                                                           <div class="form-group">
+                                                                <label for="exampleFormControlSelect1">¿Cuantas asignaturas ves?</label>
+                                                                <select id ="option" class="form-control" id="exampleFormControlSelect1">
+                                                                <option id="option" value="1">1</option>
+                                                                <option id="option" value="2">2</option>
+                                                                <option id="option" value="3">3</option>
+                                                                <option id="option" value="4">4</option>
+                                                                <option id="option" value="5">5</option>
+                                                                <option id="option" value="6">6</option>
+                                                                <option id="option" value="7">7</option>
+                                                                <option id="option" value="8">8</option>
+                                                                <option id="option" value="9">9</option>
+                                                                </select>
+                                                            </div>
+                                                            <button type="submit" style="font-family:Arial;" onclick="generateInputs()" class="btn btn-primary mb-2 btn-sm">OK</button><br>
+                                                          <p id="valores"> </p>
+                                                          <p id="inputs">
+                                                           
+                                                          </p>
+                                                          </div>
                                                             
+                                
                                                         </div>
                               
-                                                     </div>
                                                 </div>
        </div>
-   
+   <script>
+    function generateInputs(){
+        var select = document.getElementById('option');
+        value = select.value, //El valor seleccionado
+        text = select.options[select.selectedIndex].innerText;
+        document.getElementById('valores').innerHTML=' '+text;
+        var paso;
+        for( paso = 0; paso < text; paso++){
+         var r = document.getElementById("inputs");
+         r.innerHTML = "<br>Escribiendo en el documento";
+         
+        }
+
+    }
+   </script>
 </body>
 </html>

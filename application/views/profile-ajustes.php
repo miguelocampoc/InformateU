@@ -15,7 +15,10 @@
 </head>
 <body>
 <style>
-
+ p{
+     font-family:Arial;
+     font-size:15px;
+ }
 </style>
 
 <header>
@@ -72,23 +75,46 @@
                                                   <div class="row">
                                                       <div class="col-md-12">
                                                         <div class="list-group" id="list-tab" role="tablist">
-                                                        <a class="list-group-item list-group-item-action active" href="" >Tus datos</a>
-                                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAjustes" >Ajustes email y contraseña</a>
-                                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAsignatura" >Asignaturas</a>
+                                                        <a class="list-group-item list-group-item-action " href="<?php  echo base_url()?>index.php/user/profile" >Tus datos</a>
+                                                        <a class="list-group-item list-group-item-action active" href="">Ajustes email y contraseña</a>
+                                                        <a class="list-group-item list-group-item-action"  href="<?php  echo base_url()?>index.php/user/profileAsignatura" >Asignaturas</a>
                                                         </div>
                                                        </div>
                                                   </div>
                                         </div>
                                                 <div class="col-md-8">
                                             
-                                                    <div class="tab-content" id="nav-tabContent">
-                                                        <div class="row">
-                                                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                                                            <?php $this->load->view('profile/tusdatos') ?>
-                                                            
-                                                        </div>
+                                                  
+                                                        
+                                        
+                                                        <div class="row" style ="margin-left:5px">
+                                                              <div class="col-md-12">
+                                                                  <h4>Ajustes</h4>
+                                                                </div>
+                                                         </div>
+                                                         <div class="row" style ="margin-left:5px">
+                                                                 <div class="col-md-12">
+                                                                  <h5> Cambiar Email</h5>
+                                                                   <p style="margin-left:6px"> Su email actual es:</p>
+                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" >
+                                        
+                                                                   <p style="margin-left:6px"> Su nuevo email es:</p>
+                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" ><br>
+                                                                   <button type="submit" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm">Enviar enlace</button><br>
+                                                                   <h5> Cambiar Contraseña</h5>
+                                                                   <p style="margin-left:6px"> Su contraseña actual es:</p>
+                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" >
+                                                                   <p style="margin-left:6px"> Su nueva contraseña es:</p>
+                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" ><br>
+                                                                   <button type="submit" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm">Cambiar Contraseña</button><br>
+                                                                    <br>
+
+                                                                </div>
+                                                          <div>
+                                                          
+                                
+                                                       
                               
-                                                     </div>
                                                 </div>
        </div>
    

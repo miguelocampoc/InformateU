@@ -22,6 +22,7 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
             'data_register'=>$DataRegister,
             'DateTimeRecover'=>$DataRegister,
             'TokenActivate'=>password_hash($TokenActivate,PASSWORD_DEFAULT),
+            'token' => 'NULL',
             'tipo'=>'NoActivated'
 
         ];

@@ -18,6 +18,14 @@
                                     <div class="col-md-12 border " id="padding-form">
                                     <form method="POST">
                                                 <div class="row" >
+                                                <?php if (isset($_SESSION['message12'])) { ?>  
+                                                                        <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert" style="padding-bottom:0%">
+                                                                                    <p style="font-size:small"><?php echo $_SESSION['message12']; ?></p>
+                                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                        </div>
+                                                            <?php session_unset(); } ?>
                                                 <?php if (isset($_SESSION['message9'])) { ?>  
                                                                         <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert" style="padding-bottom:0%">
                                                                                     <p style="font-size:small"><?php echo $_SESSION['message9']; ?></p>
