@@ -11,6 +11,7 @@ class user extends CI_Controller {
     }
 
     public function profile(){
+<<<<<<< HEAD
        
         $this->load->model('gets');
         $result=$this->gets->getRowUser();
@@ -28,11 +29,18 @@ class user extends CI_Controller {
         $this->load->view('profile',$datos);
 
     } 
+=======
+        $this->load->view('profile');
+    }
+>>>>>>> 170a0f4bf6c1808747464e440475a99bec45cb70
     public function profileAjustes(){
         $this->load->view('profile-ajustes');
     }
     public function profileAsignatura(){
+<<<<<<< HEAD
         
+=======
+>>>>>>> 170a0f4bf6c1808747464e440475a99bec45cb70
         $this->load->view('profile-asignatura');
     }
 }  

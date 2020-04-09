@@ -84,6 +84,7 @@
                                                     <div class="tab-content" id="nav-tabContent">
                                                         <div class="row">
                                                             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+<<<<<<< HEAD
                                                             <div class="row" style ="margin-left:5px">
                                                               <div class="col-md-12">
                                                                   <h4>Tus datos</h4>
@@ -149,6 +150,9 @@
                                             </div>
                                         </div>
                             </div>
+=======
+                                                            <?php $this->load->view('profile/tusdatos') ?>
+>>>>>>> 170a0f4bf6c1808747464e440475a99bec45cb70
                                                             
                                                         </div>
                               
