@@ -141,7 +141,7 @@
                                                             <p>¿Que estudias?</p>
                                                             <input type="text" name="carrera" class="form-control" ><br>
                                                             <button type="submit" style="font-family:Arial; " class="btn btn-primary mb-2 ">Guardar Cambios</button>
-                                                             <p>Prueba exitosa</p>
+                                                
                                                             </div>
                                                          </div>
                                                      <div>
