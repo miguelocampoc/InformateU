@@ -61,7 +61,7 @@
 
                                                 </div>
                                                 <div class="row  justify-content-center">
-                                                 <img height="180px" src="<?php echo base_url("/images/informateU.png")?>"> </img>
+                                                 <img height="140px" width="260px"src="<?php echo base_url("/images/migised.png")?>"> </img>
                                                 </div><br>
                                                 <div class="row">
                                                     <div id="messages-error"><?php  echo  form_error ( 'usuario' );  ?></div>

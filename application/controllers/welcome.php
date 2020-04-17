@@ -230,8 +230,9 @@ class Welcome extends CI_Controller {
 	public function logout()
 	{
 		$this->session->set_userdata('email');
-		 $this->session->sess_destroy();
-		 redirect('Welcome/login');
+		$this->session->sess_destroy();
+		session_unset ();
+		redirect('Welcome/login');
 
 	}
 }

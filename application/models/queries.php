@@ -54,6 +54,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           return false;
         }
     }
+    public function User_Exist()
+    {
+        $usuario=$this->input->post('usuario');
+        $email= $_SESSION['email'];       
+        $sql="SELECT* FROM usuarios WHERE usuario=?";
+        $result=$this->db->query($sql, array($usuario))->num_rows();
+        $this->load->model('gets');
+        $row=$this->gets->getRowUser()->row();
+
+        if($result===1 && $row->usuario!=$usuario){
+            return false;
+        }
+        else{
+            return true;
+        }
+    
+      
+    }
     public function ValidationURL()
     {   
         if(htmlspecialchars($_GET["t"])&& htmlspecialchars($_GET["id"])){
@@ -130,6 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  
     }
+
 
     
     

@@ -18,7 +18,9 @@
  p{
      font-family:Arial;
      font-size:15px;
+
  }
+
 </style>
 
 <header>
@@ -62,7 +64,7 @@
     <br><br><br><br>
        <div class="container ">
                   <div class="row justify-content-center ">
-                            <div class="col-sm-12 col-md-10  border">
+                            <div class="col-sm-12 col-md-10  border-right  border-left">
                                        <div class="row">
                                                 <div class="col-md-12">
                                                  <h3> Editar perfil </h3>
@@ -76,47 +78,109 @@
                                                       <div class="col-md-12">
                                                         <div class="list-group" id="list-tab" role="tablist">
                                                         <a class="list-group-item list-group-item-action " href="<?php  echo base_url()?>index.php/user/profile" >Tus datos</a>
-                                                        <a class="list-group-item list-group-item-action active" href="">Ajustes email y contraseña</a>
-                                                        <a class="list-group-item list-group-item-action"  href="<?php  echo base_url()?>index.php/user/profileAsignatura" >Asignaturas</a>
-                                                        </div>
+                                                        <a class="list-group-item list-group-item-action active" href="">Ajustes</a>
+                                                       <!-- <a class="list-group-item list-group-item-action" href="<? /*php  echo base_url()*/?>index.php/user/profileAsignatura" >Asignaturas</a> !-->                                                        </div>
                                                        </div>
                                                   </div>
                                         </div>
                                                 <div class="col-md-8">
-                                            
-                                                  
+                                                <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button  style="text-decoration:none; color:black"class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Reestablecimiento de la clave
+        </button>
+        <button  style="text-decoration:none; float:right"class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <a href="#" class="bt-menu"><i class="fas fa-chevron-down"></i> </a>
+
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+      <div class="row">
+      <p style="margin-left:10px; font-size:small">Ingrese su contraseña actual </p>
+      </div>
+      <div class="row">
+      <div class="col-md-6">
+      <input type="password"   class="form-control form-control-sm" >
+      </div>
+      <div class="col-md-6">
+      <button type="submit" name="update" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm ">Verificar</button><br>
+       </div>
+
+      </div>
+      <div class="row">
+          <p style="font-size:small; margin-left:10px;">Introdusca su nueva contraseña</p>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+          <input type="password"   class="form-control form-control-sm col-md-12 " ><br>
+        </div>
+        <div class="col-md-6">
+           <button type="submit" name="update" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm ">Reestablecer </button><br>
+        </div>
+
+          </div>
+          
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button style="text-decoration:none; color:black" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Reestablecimiento del email
+        </button>
+        <button  style="text-decoration:none; float:right"class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+        <a href="#" class="bt-menu"><i class="fas fa-chevron-down"></i> </a>
+
+        </button>
+        
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+      <p style="margin-left:10px; font-size:small">Si usted desea cambiar su email ingrese uno nuevo y se le enviaria a ese email un enlace para verificar la cuenta, una vez verificado su email se actualizara </p>
+      <div class="row">
+      <div class="col-md-6">
+      <input type="text"   class="form-control form-control-sm" >
+      </div>
+      <div class="col-md-6">
+      <button type="submit" name="update" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm ">Enviar Enlace</button><br>
+       </div>
+
+      </div>
+      </div>
+    </div>
+  
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button style="text-decoration:none;color:black" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Ajustes de la cuenta
+        </button>
+        <button  style="text-decoration:none; float:right"class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+        <a href="#" class="bt-menu"><i class="fas fa-chevron-down"></i> </a>
+
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+</div>
+                                         
                                                         
                                         
-                                                        <div class="row" style ="margin-left:5px">
-                                                              <div class="col-md-12">
-                                                                  <h4>Ajustes</h4>
-                                                                </div>
-                                                         </div>
-                                                         <div class="row" style ="margin-left:5px">
-                                                                 <div class="col-md-12">
-                                                                  <h5> Cambiar Email</h5>
-                                                                   <p style="margin-left:6px"> Su email actual es:</p>
-                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" >
-                                        
-                                                                   <p style="margin-left:6px"> Su nuevo email es:</p>
-                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" ><br>
-                                                                   <button type="submit" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm">Enviar enlace</button><br>
-                                                                   <h5> Cambiar Contraseña</h5>
-                                                                   <p style="margin-left:6px"> Su contraseña actual es:</p>
-                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" >
-                                                                   <p style="margin-left:6px"> Su nueva contraseña es:</p>
-                                                                   <input type="text" name="email" class="form-control form-control-sm col-md-10" ><br>
-                                                                   <button type="submit" style="font-family:Arial; " class="btn btn-primary mb-2 btn-sm">Cambiar Contraseña</button><br>
-                                                                    <br>
-
-                                                                </div>
-                                                          <div>
-                                                          
-                                
-                                                       
                               
                                                 </div>
+                                                  
        </div>
-   
+       
 </body>
 </html>

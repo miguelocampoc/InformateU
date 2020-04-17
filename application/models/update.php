@@ -39,5 +39,20 @@ public function updatePassword()
        $this->db->query($sql, array("Activated","NULL",$id));
 
     }
+    public function UpdateUser()
+    {  
+      $this->load->helper('quitarespacio');
+      $email= $_SESSION['email'];       
+      $nombre =Quitar_EspaciosNombre($this->input->post("nombre"));
+		$apellidos =Quitar_EspaciosApellido($this->input->post("apellidos"));
+      $usuario= $this->input->post('usuario');
+      $genero= $this->input->post('genero');
+      $cumpleaños=$this->input->post('cumpleaños');
+      $biografia=$this->input->post('biografia');
+      $carrera=$this->input->post('carrera');
+      $sql = "UPDATE usuarios SET nombre=?, apellidos=?, usuario=?, genero=?, cumpleaños=?,biografia=?, idcarrera=? WHERE email=?"; 
+      return $this->db->query($sql, array($nombre,$apellidos,$usuario,$genero,$cumpleaños,$biografia,$carrera,$email));
+
+    }
 }
 ?>

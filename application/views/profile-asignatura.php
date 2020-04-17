@@ -74,8 +74,7 @@
                                                         <div class="list-group" id="list-tab" role="tablist">
                                                         <a class="list-group-item list-group-item-action " href="<?php  echo base_url()?>index.php/user/profile" >Tus datos</a>
                                                         <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAjustes">Ajustes email y contraseña</a>
-                                                        <a class="list-group-item list-group-item-action active"  href="" >Asignaturas</a>
-                                                        </div>
+                                                       <!-- <a class="list-group-item list-group-item-action" href="<? /*php  echo base_url()*/?>index.php/user/profileAsignatura" >Asignaturas</a> !-->                                                        </div>
                                                        </div>
                                                   </div>
                                         </div>

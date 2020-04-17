@@ -23,7 +23,8 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
             'DateTimeRecover'=>$DataRegister,
             'TokenActivate'=>password_hash($TokenActivate,PASSWORD_DEFAULT),
             'token' => 'NULL',
-            'tipo'=>'NoActivated'
+            'tipo'=>'NoActivated',
+            'idcarrera'=>0
 
         ];
         return  $this->db->insert('usuarios',$data);
