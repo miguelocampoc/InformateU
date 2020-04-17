@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2020 a las 00:37:36
+-- Tiempo de generación: 17-04-2020 a las 21:52:37
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.26
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `blog`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carreras`
+--
+
+CREATE TABLE `carreras` (
+  `idcarrera` int(5) NOT NULL,
+  `carrera` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `carreras`
+--
+
+INSERT INTO `carreras` (`idcarrera`, `carrera`) VALUES
+(1, 'INGENIERIA DE SISTEMAS'),
+(2, 'INGENIERIA INDUSTRIAL'),
+(3, 'INGENIERIA ELECTRONICA'),
+(4, 'ADMINISTRACION DE EMPRESAS'),
+(5, 'PSICOLOGIA'),
+(6, 'DISEÑO GRAFICO'),
+(10000, 'NINGUNA');
 
 -- --------------------------------------------------------
 
@@ -44,7 +68,7 @@ CREATE TABLE `usuarios` (
   `genero` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
   `cumpleaños` date NOT NULL,
   `biografia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `idcarrera` int(10) NOT NULL
+  `idcarrera` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -52,27 +76,51 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`iduser`, `nombre`, `usuario`, `email`, `clave`, `token`, `foto`, `DateTimeRecover`, `data_register`, `apellidos`, `TokenActivate`, `tipo`, `genero`, `cumpleaños`, `biografia`, `idcarrera`) VALUES
-(133, 'Miguel Angel', 'miguel09', 'miguelocampoc@gmail.com', '$2y$10$ZZNsPdM6fPJMCUgdPfjGp.cGttSpKJOKoK6E4I6veUC7LriUR2116', 'NULL', '', '2020-04-07 22:33:00', '2020-04-07 22:33:00', 'Ocampo Chavarro', 'NULL', 'Activated', 'M', '1999-09-04', 'Estudiante', 0);
+(144, 'miguel', 'miguelocampoc', 'miguelocampoc@gmail.com', '$2y$10$wpR6RFayL6Ve0rJ4dELPOeg0QXZQnHIV7irR1ceVNLe/B5tYWfJlW', 'NULL', '', '2020-04-13 14:12:00', '2020-04-13 14:12:00', 'ocampo', '$2y$10$iENUlFLarhCIYOrnLZ/Ilepsge2T2uOF8UGwznP0Kl9jmwRNLCfn2', 'Actived', 'M', '2020-04-03', 'Estudiante de ingenieria de sistemas', 1),
+(145, 'miguel', 'miguel09', 'magelosac@gmail.com', '', '', '', '2020-04-13 20:30:27', '2020-04-13 20:30:27', 'ocampo', '', 'Activated', 'M', '2020-04-03', 'Estudiante de ingenieria de sistemas', 1);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `carreras`
+--
+ALTER TABLE `carreras`
+  ADD PRIMARY KEY (`idcarrera`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`iduser`);
+  ADD PRIMARY KEY (`iduser`),
+  ADD KEY `idcarrera` (`idcarrera`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
+-- AUTO_INCREMENT de la tabla `carreras`
+--
+ALTER TABLE `carreras`
+  MODIFY `idcarrera` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`idcarrera`) REFERENCES `carreras` (`idcarrera`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
