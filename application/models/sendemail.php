@@ -55,6 +55,7 @@ public function sendEmail()
         $this->email->message($this->load->view('emails/password_changed',$datos, true));
         $this->email->send(); 
     }
+    /*
     public function SendValidationUser($emailDB,$TokenActivate,$iduser)
     { 
     $this->emailDB=$emailDB;
@@ -72,6 +73,6 @@ public function sendEmail()
     $this->email->message($this->load->view('emails/ValidationUser',$datos,true));
     $this->email->send(); 
     }
-   
+   */
  }
 ?>

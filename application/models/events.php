@@ -11,9 +11,10 @@ public function DropEventDeleteUser($id)
         $row=$result->row();
         $usuario=$row->usuario;
         $sql2 ="DROP EVENT  IF EXISTS $usuario";
-        $this->db->query($sql2);
-       
-    }
+        $this->db->query($sql2);  
+    }  
+
+    /*
     public function EventDeleteUser($usuario)
     {
      $this->usuario=$usuario;
@@ -24,6 +25,6 @@ public function DropEventDeleteUser($id)
     $this->db->query($sql);
    
     }
-    
+    */
 }
 ?>

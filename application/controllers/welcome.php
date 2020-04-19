@@ -96,11 +96,11 @@ class Welcome extends CI_Controller {
 							$this->load->model('queries');
 							$this->load->model('events');
 							$this->load->model('sendemail');
-							$this->events->EventDeleteUser($usuario);
+                        /* $this->events->EventDeleteUser($usuario);*/
 							$row=$this->queries->GetFilasUser($email)->row();
 							$iduser=$row->iduser;
 							$emailDB=$row->email;
-							$this->sendemail->SendValidationUser($emailDB,$TokenActivate,$iduser);
+							/*$this->sendemail->SendValidationUser($emailDB,$TokenActivate,$iduser);*/
 							redirect('Welcome/login');
 						}
 						else{

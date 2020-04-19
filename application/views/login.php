@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php $this->load->view('libraries/libraries')?>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>/css/estilos.css">
+    <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
     <title>Login</title>
 </head>
 <body>
@@ -61,7 +62,7 @@
 
                                                 </div>
                                                 <div class="row  justify-content-center">
-                                                 <img height="140px" width="260px"src="<?php echo base_url("/images/migised.png")?>"> </img>
+                                                 <img height="140px" width="350px"src="<?php echo base_url("/images/migsed-logo.jpeg")?>"> </img>
                                                 </div><br>
                                                 <div class="row">
                                                     <div id="messages-error"><?php  echo  form_error ( 'usuario' );  ?></div>
