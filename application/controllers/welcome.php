@@ -93,24 +93,22 @@ class Welcome extends CI_Controller {
 						$TokenActivate=generateToken();
 						$result=$this->insert->InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$TokenActivate);
 						if($result){
-							$this->load->model('queries');
-							$this->load->model('events');
+						//	$this->load->model('queries');
+					//		$this->load->model('events');
 							$this->load->model('sendemail');
                         /* $this->events->EventDeleteUser($usuario);*/
-							$row=$this->queries->GetFilasUser($email)->row();
-							$iduser=$row->iduser;
-							$emailDB=$row->email;
-							/*$this->sendemail->SendValidationUser($emailDB,$TokenActivate,$iduser);*/
+						  
+						//	$emailDB=$row->email;
+							$this->sendemail->sendEmail($email,$TokenActivate);
+							$_SESSION['message20'] = 'Usted se ha registrado exitosamente,Verifica tu cuenta';
+
 							redirect('Welcome/login');
-						}
-						else{
-							echo "Ha ocurrido un error durante el registro";
-						}
-					
-					}
+
 		}
 				
 	}
+}}
+
 	public function recover()
 	{
 
@@ -133,9 +131,12 @@ class Welcome extends CI_Controller {
 						if($existDB) {
 							if($isActivatedUser){
 								if($ValidationTime){
+									$this->load->helper('generateToken');
 									$this->load->model('sendemail');
 									$this->load->model('update');
-									$this->sendemail->sendEmail();
+									$token=generateToken();
+									$this->update->UpdateTokenRecover($token,$email);
+									$this->sendemail->mailrecover($token,$email);
 									$this->update->AddTimeRecover();
 									$_SESSION['message5'] = 'Hemos enviado un enviado un correo a tu email para reestablecer tu contraseña';
 									redirect('Welcome/recover');
@@ -182,7 +183,8 @@ class Welcome extends CI_Controller {
 							$result=$this->update->updatePassword();
 							 if($result){
 							  $this->load->model('sendemail');
-							  $this->sendemail->SendPasswordchanged();
+							  $id= htmlspecialchars($_GET["id"]);
+							  $this->sendemail->mailupdatepassword($id);
                               redirect('Welcome/login');
 							 }
 							 else{

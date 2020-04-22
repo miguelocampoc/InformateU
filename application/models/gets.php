@@ -27,6 +27,15 @@ public function getRowUser()
        return $this->db->query($sql, array($email,$email));
       
     }
+    public function getEmailByid($id)
+    {
+       $this->id=$id;
+       $sql = "SELECT email FROM usuarios WHERE iduser=?"; 
+       $result= $this->db->query($sql, array($id));
+       $row=$result->row();
+       return $row->email;
+    }
+    
    
 }
 ?>

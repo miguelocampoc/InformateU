@@ -36,7 +36,7 @@ public function updatePassword()
     {  
        $this->id=$id;
        $sql="UPDATE usuarios SET tipo=?,TokenActivate=? WHERE iduser=?";
-       $this->db->query($sql, array("Activated","NULL",$id));
+       $this->db->query($sql, array("Actived","NULL",$id));
 
     }
     public function UpdateUser()
@@ -53,6 +53,15 @@ public function updatePassword()
       $sql = "UPDATE usuarios SET nombre=?, apellidos=?, usuario=?, genero=?, cumpleaños=?,biografia=?, idcarrera=? WHERE email=?"; 
       return $this->db->query($sql, array($nombre,$apellidos,$usuario,$genero,$cumpleaños,$biografia,$carrera,$email));
 
+    }
+    public function UpdateTokenRecover($token,$email)
+    {  
+      $this->$token=$token;
+      $token=password_hash($token,PASSWORD_DEFAULT);
+      $this->$email=$email;
+      $sql = "UPDATE usuarios SET token=? WHERE email=?"; 
+      $this->db->query($sql, array($token,$email));
+      
     }
 }
 ?>

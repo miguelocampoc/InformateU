@@ -6,73 +6,148 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		parent::__construct();
 		
 	}
-public function sendEmail()
+public function sendEmail($email,$TokenActivate)
+        {
+         $this->load->model('queries');
+         $this->email=$email;
+         $this->TokenActivate=$TokenActivate;
+         $row=$this->queries->GetFilasUser($email)->row();
+         $iduser=$row->iduser;
+         $url = 'http://localhost/InformateU/index.php/welcome/AccountActivated?&id='.$iduser.'&t='.$TokenActivate;
+                      $this->load->library('phpmailer_lib');
+							$mail=$this->phpmailer_lib->load();
+							$mail->isSMTP();
+								$mail->Host = 'smtp.gmail.com';
+								$mail->SMTPAuth = true;
+								$mail->Username = 'infomigsed@gmail.com';
+								$mail->Password = '@migsed123';
+								$mail->SMTPSecure = 'tls';
+								$mail->Port = 587;
+					            $mail->setFrom('infomigsed@gmail.com', 'MIGSED');
+							    $mail->addAddress($email);
+							    $mail->Subject = 'MIGSED|Gracias por registrate, Verifica tu cuenta';
+							    $mail->isHTML(true);
+							    $mailContent = "<!DOCTYPE html>
+                            <html>
+                            <head>
+                                <title>Document</title>
+                            </head>
+                            <body>
+                            
+                                <p> 
+                                Usted se ha registrado exitosamente en MIGSED verifica tu cuenta
+                                </p>
+                                 <br>
+                                 <a href=".$url.">
+                                       <button>
+                                        Click Me!
+                                        </button> 
+                                </a>    
+                            </body>
+                            </html>";
+							$mail->Body = $mailContent;
+							
+							// Send email
+							if(!$mail->send()){
+								echo 'Message could not be sent.';
+								echo 'Mailer Error: ' . $mail->ErrorInfo;
+							}else{
+								echo 'Message has been sent';
+							}
+					
+					}
+    public function mailupdatepassword($id){
+      $this->load->model('gets');
+      $this->id=$id;
+      $email= $this->gets->getEmailByid($id);
+                     $this->load->library('phpmailer_lib');
+                           $mail=$this->phpmailer_lib->load();
+                           $mail->isSMTP();
+                               $mail->Host = 'smtp.gmail.com';
+                               $mail->SMTPAuth = true;
+                               $mail->Username = 'infomigsed@gmail.com';
+                               $mail->Password = '@migsed123';
+                               $mail->SMTPSecure = 'tls';
+                               $mail->Port = 587;
+                               $mail->setFrom('infomigsed@gmail.com', 'MIGSED');
+                               $mail->addAddress($email);
+                               $mail->Subject = 'MIGSED|Usted ha reestablecido su cuenta de MIGSED';
+                               $mail->isHTML(true);
+                               $mailContent = "<!DOCTYPE html>
+                           <html>
+                           <head>
+                               <title>Document</title>
+                           </head>
+                           <body>
+                           
+                               <p> 
+                               Usted ha reestablecido correctamente su clave
+                               </p>
+                               
+                           </body>
+                           </html>";
+                           $mail->Body = $mailContent;
+                           
+                           // Send email
+                           if(!$mail->send()){
+                               echo 'Message could not be sent.';
+                               echo 'Mailer Error: ' . $mail->ErrorInfo;
+                           }else{
+                               echo 'Message has been sent';
+                           }
+    }
+    
+    public function  mailrecover($token,$email)
     {  
-        $this->load->helper('generateToken');
-        $email =$this->input->post("email");
-        $token= generateToken();
-        
-        $sql1 = "SELECT * FROM usuarios WHERE email = ? "; 
-        $result= $this->db->query($sql1, array($email));
-        $row=$result->row();
-        $iduser= $row->iduser;
-        $nombre=$row->nombre;
-        $apellidos=$row->apellidos;
-        $url = 'http://localhost/InformateU/index.php/welcome/recoverpass?&t='.$token.'&id='.$iduser;
 
-        $sql2="UPDATE usuarios SET token=? WHERE email=?";
-        $this->db->query($sql2, array(password_hash($token,PASSWORD_DEFAULT), $email));   
-       
-        $datos['nombre'] = $nombre;
-        $datos['apellidos'] = $apellidos;
-        $datos['email'] = $email;
-        $datos['url'] = $url;
-
-        $this->load->library('email');
-        $this->email->from('magelosac@gmail.com', 'Miguel');
-        $this->email->to($email);	
-        $this->email->subject('Restablecimiento de la clave');
-        $this->email->set_mailtype("html");
-        $this->email->message($this->load->view('emails/recoverEmail',$datos, true));
-        $this->email->send();
+        $this->load->model('queries');
+        $this->email=$email;
+        $this->token=$token;
+        $row=$this->queries->GetFilasUser($email)->row();
+        $iduser=$row->iduser;
+        $url = 'http://localhost/InformateU/index.php/welcome/recoverpass?&id='.$iduser.'&t='.$token;
+                     $this->load->library('phpmailer_lib');
+                           $mail=$this->phpmailer_lib->load();
+                           $mail->isSMTP();
+                               $mail->Host = 'smtp.gmail.com';
+                               $mail->SMTPAuth = true;
+                               $mail->Username = 'infomigsed@gmail.com';
+                               $mail->Password = '@migsed123';
+                               $mail->SMTPSecure = 'tls';
+                               $mail->Port = 587;
+                               $mail->setFrom('infomigsed@gmail.com', 'MIGSED');
+                               $mail->addAddress($email);
+                               $mail->Subject = 'MIGSED|Restablece tu clave';
+                               $mail->isHTML(true);
+                               $mailContent = "<!DOCTYPE html>
+                           <html>
+                           <head>
+                               <title>Document</title>
+                           </head>
+                           <body>
+                           
+                               <p> 
+                               Usted ha solicitada un cambio de contraseña en MIGSED si  es usted por favor dar click en el link para reestablecer en su cuenta
+                               </p>
+                                <br>
+                                <a href=".$url.">
+                                      <button>
+                                       Click Me!
+                                       </button> 
+                               </a>    
+                           </body>
+                           </html>";
+                           $mail->Body = $mailContent;
+                           
+                           // Send email
+                           if(!$mail->send()){
+                               echo 'Message could not be sent.';
+                               echo 'Mailer Error: ' . $mail->ErrorInfo;
+                           }else{
+                               echo 'Message has been sent';
+                           }
     }
-    public function SendPasswordchanged()
-    {  
-        $iduser= htmlspecialchars($_GET["id"]);        
-        $sql="SELECT * FROM usuarios WHERE iduser = ?";
-        $result=$this->db->query($sql, array($iduser));   
-        $row=$result->row();
-        $datos['email'] = $row->email;
-        $datos['nombre'] = $row->nombre;
-        $datos['apellidos'] = $row->apellidos;
-
-      
-        $this->load->library('email');
-        $this->email->from('magelosac@gmail.com', 'Miguel');
-        $this->email->to($row->email);	
-        $this->email->subject('Su cuenta ha sido reestablecida con exito');
-        $this->email->set_mailtype("html");
-        $this->email->message($this->load->view('emails/password_changed',$datos, true));
-        $this->email->send(); 
-    }
-    /*
-    public function SendValidationUser($emailDB,$TokenActivate,$iduser)
-    { 
-    $this->emailDB=$emailDB;
-    $this->TokenActivate=$TokenActivate;
-    $this->iduser=$iduser;
-    $url = 'http://localhost/InformateU/index.php/welcome/AccountActivated?&id='.$iduser.'&t='.$TokenActivate;
-    $datos['url'] = $url;
-    $datos['email'] = $this->emailDB;
-
-    $this->load->library('email');
-    $this->email->from('magelosac@gmail.com', 'Miguel');
-    $this->email->to($emailDB);	
-    $this->email->subject('Verifica tu cuenta de InformateU ');
-    $this->email->set_mailtype("html");
-    $this->email->message($this->load->view('emails/ValidationUser',$datos,true));
-    $this->email->send(); 
-    }
-   */
+    
+    
  }
 ?>
