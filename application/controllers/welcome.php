@@ -30,9 +30,12 @@ class Welcome extends CI_Controller {
 						$isActivatedUser=$this->queries->isActivatedUser($email);
 							if($ValidationLogin){
 									if($isActivatedUser){
-								    session_start();
-									$_SESSION['email']=$email;	
-									redirect('Welcome');					
+										$this->load->model('gets');
+									   $iduser= $this->gets->getidByEmail2($email);	
+								       session_start();
+									   $_SESSION['email']=$email;	
+									   $_SESSION['iduser']=$iduser;
+									   redirect('Welcome');					
 									}
 									else{
 										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora apartir del tiempo de registro tu cuenta sera eliminada.';
@@ -204,8 +207,15 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->helper('Autenticate');
 		$Auth= Auth();
+		
 		if($Auth){
-			$this->load->view('index');
+			$this->load->model('gets');
+			$data=array(
+				'usuarios'=>$this->gets->getRowUser(),
+				'carreraUser'=>$this->gets->getByidCarrera()
+			);
+			
+			$this->load->view('index',$data);
 		}
 		else{
 			redirect('Welcome/login');
@@ -224,6 +234,27 @@ class Welcome extends CI_Controller {
 		}		
 
 	}
+    public function VerifiyEmail()
+	{
+		$this->load->model('queries');
+		$validation=$this->queries->validationupdateEmail();
+		if($validation){
+            $email=$this->input->post('email');
+            $id=htmlspecialchars($_GET["id"]);
+			 
+			$this->load->model('update');
+			$this->update->updateEmail($email,$id);
+			$this->load->view('VerifyEmailUpdate');
+		}
+		else{
+            redirect('error404');
+		}		
+
+	}
+
+
+
+
 	public function error404()
 	{
 	    $this->load->view('erros/html/error_404');

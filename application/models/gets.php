@@ -35,6 +35,22 @@ public function getRowUser()
        $row=$result->row();
        return $row->email;
     }
+    public function getidByEmail()
+    {
+        $email= $_SESSION['email'];       
+        $sql = "SELECT*FROM usuarios WHERE email=? OR iduser=?"; 
+        $result= $this->db->query($sql, array($email,$email));
+        $row=$result->row();
+        return $row->iduser;
+    }
+    public function getidByEmail2($email)
+    {
+        $this->email=$email;      
+        $sql = "SELECT*FROM usuarios WHERE email=? OR iduser=?"; 
+        $result= $this->db->query($sql, array($email,$email));
+        $row=$result->row();
+        return $row->iduser;
+    }
     
    
 }

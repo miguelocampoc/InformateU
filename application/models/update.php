@@ -50,9 +50,9 @@ public function updatePassword()
       $cumpleaños=$this->input->post('cumpleaños');
       $biografia=$this->input->post('biografia');
       $carrera=$this->input->post('carrera');
-      $sql = "UPDATE usuarios SET nombre=?, apellidos=?, usuario=?, genero=?, cumpleaños=?,biografia=?, idcarrera=? WHERE email=?"; 
+      $sql = "UPDATE usuarios SET nombre=?, apellidos=?, usuario=?, genero=?,cumpleaños=?,biografia=?, idcarrera=? WHERE email=?"; 
       return $this->db->query($sql, array($nombre,$apellidos,$usuario,$genero,$cumpleaños,$biografia,$carrera,$email));
-
+    
     }
     public function UpdateTokenRecover($token,$email)
     {  
@@ -63,5 +63,46 @@ public function updatePassword()
       $this->db->query($sql, array($token,$email));
       
     }
+
+    public function subirfoto($tipo,$iduser)
+    {   
+      $this->tipo=$tipo;
+      $this->iduser=$iduser;
+      $email= $_SESSION['email'];
+      $foto="fotouser".$iduser.'.'.$tipo;
+      $sql = "UPDATE usuarios SET foto=? WHERE email=?"; 
+      $this->db->query($sql, array($foto,$email));
+    }
+    public function updateTokenEmail($token,$iduser)
+    {   
+      $this->$token=$token;
+      $this->iduser=$iduser;
+      $token=password_hash($token,PASSWORD_DEFAULT);
+      $sql = "UPDATE usuarios SET tokenUpdateEmail=? WHERE iduser=?"; 
+      $this->db->query($sql, array($token,$iduser));
+     
+    }
+
+
+
+
+    public function updateEmail($email,$id)
+    {   
+      $this->email=$email;
+      $this->id=$id;
+      $sql = "UPDATE usuarios SET email=? ,tokenUpdateEmail=? WHERE iduser=? ";
+      return $this->db->query($sql, array($email,"NULL",$id));
+
+    }
+
+    public function restablecerclave($clave)
+    {   
+    $this->clave=$clave;
+    $email= $_SESSION['email'];
+    $clave=password_hash($clave,PASSWORD_DEFAULT);
+    $sql = "UPDATE usuarios SET clave=? WHERE email=?"; 
+    $this->db->query($sql, array($clave,$email));
+    }
 }
+
 ?>

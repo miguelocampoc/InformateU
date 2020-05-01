@@ -34,6 +34,13 @@
 
     text-align: center;
     }
+    #img-profile-home{
+      width:60px;
+      height:60px;
+      border-radius:30px;
+  
+      text-align: center;
+      }
     #div-img{
       text-align: center;
 
@@ -45,9 +52,22 @@
      #botton-profile2{
       width:45%;
     }
+     #img-navbar{
+      width:30px;
+      height:30px;
+      border-radius:15px;
+       
+     }
     @media screen and (max-width:800px ) {
        
     #botton-profile2{
       width:100%;
       }
+      #img-profile-home{
+        width:90px;
+        height:90px;
+        border-radius:45px;
+    
+        text-align: center;
+        }
   }

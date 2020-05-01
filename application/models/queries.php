@@ -132,6 +132,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          }
     
     }
+
+    public function validationupdateEmail(){
+
+        if(htmlspecialchars($_GET["id"])&& htmlspecialchars($_GET["t"])){
+            $token=htmlspecialchars($_GET["t"]);
+            $id=htmlspecialchars($_GET["id"]);
+            $sql = "SELECT * FROM usuarios WHERE iduser=?"; 
+            $result=$this->db->query($sql, array($id));
+            $row=$result->row();
+                       if(password_verify($token,$row->tokenUpdateEmail)){
+              
+                        return true;
+                       }
+                       else{
+                        return false;
+                       }
+            }
+            else{
+                return false;
+            }
+
+    }
     public function GetTimeRemaingRecover($email)
     {   
         date_default_timezone_set('America/Bogota');

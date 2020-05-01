@@ -4,19 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$TokenActivate)
     {
-
         date_default_timezone_set('America/Bogota');
         $DataRegister=date("Y-m-d H:i:00");
         $this->email=$email;
         $this->nombre=$nombre;
         $this->apellidos=$apellidos;
         $this->usuario=$usuario;
+        $foto="NULL";
         $this->clave=$clave;
         $this->TokenActivate=$TokenActivate;
         $data=[ 
             'nombre'=>$nombre,
             'apellidos'=>$apellidos,
             'usuario'=>$usuario,
+            'foto' =>$foto,
             'email'=>$email,
             'clave'=> password_hash($clave,PASSWORD_DEFAULT/*,array("cost"=>12)  */),
             'data_register'=>$DataRegister,
@@ -30,6 +31,24 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
         return  $this->db->insert('usuarios',$data);
     
        
+    }
+    public function insertquestion($titulo,$descripcion){
+        $this->load->helper('quitarespacio');
+        $this->titulo=$titulo;
+        $this->descripcion=$descripcion;
+        $titulo =Quitar_EspaciosTitulo($titulo);
+        $descripcion=Quitar_Espaciosdescripcion($descripcion);
+        $iduser= $_SESSION['iduser'];
+
+        $data=[ 
+          'titulo'=>$titulo,
+          'descripcion'=>$descripcion,
+          'iduser'=>$iduser,
+          'idasignatura'=>1
+
+        ];
+        return  $this->db->insert('publicaciones',$data);
+
     }
 }
 ?>

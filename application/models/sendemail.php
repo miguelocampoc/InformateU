@@ -147,7 +147,56 @@ public function sendEmail($email,$TokenActivate)
                                echo 'Message has been sent';
                            }
     }
-    
+     
+    public function sendupdateemail($email,$token,$iduser){
+
+        $this->email=$email;
+        $this->token=$token;
+        $this->iduser=$iduser;
+        $url = 'http://localhost/InformateU/index.php/welcome/VerifiyEmail?&id='.$iduser.'&t='.$token;
+                     $this->load->library('phpmailer_lib');
+                           $mail=$this->phpmailer_lib->load();
+                           $mail->isSMTP();
+                               $mail->Host = 'smtp.gmail.com';
+                               $mail->SMTPAuth = true;
+                               $mail->Username = 'infomigsed@gmail.com';
+                               $mail->Password = '@migsed123';
+                               $mail->SMTPSecure = 'tls';
+                               $mail->Port = 587;
+                               $mail->setFrom('infomigsed@gmail.com', 'MIGSED');
+                               $mail->addAddress($email);
+                               $mail->Subject = 'MIGSED|Restablece tu email';
+                               $mail->isHTML(true);
+                               $mailContent = "<!DOCTYPE html>
+                           <html>
+                           <head>
+                               <title>Document</title>
+                           </head>
+                           <body>
+                           
+                               <p> 
+                             Usted ha solicitado un cambio de correo electronico , pulsa click para reestablecer email.
+                               </p>
+                                <br>
+                                <form action=".$url." method='POST'>
+                                <input type='hidden' name='email' value=".$email.">
+                                      <button type='submit'>
+                                       Click Me!
+                                       </button> 
+                               </form>   
+                           </body>
+                           </html>";
+                           $mail->Body = $mailContent;
+                           
+                           // Send email
+                           if(!$mail->send()){
+                               echo 'Message could not be sent.';
+                               echo 'Mailer Error: ' . $mail->ErrorInfo;
+                           }else{
+                               echo 'Message has been sent';
+                           }
+            
+    }
     
  }
 ?>
