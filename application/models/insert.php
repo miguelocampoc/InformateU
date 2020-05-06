@@ -32,20 +32,12 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
     
        
     }
-    public function insertquestion($titulo,$descripcion){
-        $this->load->helper('quitarespacio');
-        $this->titulo=$titulo;
+    public function insertpublicacion($descripcion){
         $this->descripcion=$descripcion;
-        $titulo =Quitar_EspaciosTitulo($titulo);
-        $descripcion=Quitar_Espaciosdescripcion($descripcion);
-        $iduser= $_SESSION['iduser'];
-
-        $data=[ 
-          'titulo'=>$titulo,
-          'descripcion'=>$descripcion,
-          'iduser'=>$iduser,
-          'idasignatura'=>1
-
+        $iduser=$_SESSION['iduser'];
+        $data= [ 
+            'iduser'=> $iduser,
+            'descripcion'=>$descripcion
         ];
         return  $this->db->insert('publicaciones',$data);
 

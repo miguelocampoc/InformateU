@@ -30,6 +30,8 @@ public function sendEmail($email,$TokenActivate)
 							    $mailContent = "<!DOCTYPE html>
                             <html>
                             <head>
+                            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>
+
                                 <title>Document</title>
                             </head>
                             <body>
@@ -76,6 +78,7 @@ public function sendEmail($email,$TokenActivate)
                                $mailContent = "<!DOCTYPE html>
                            <html>
                            <head>
+
                                <title>Document</title>
                            </head>
                            <body>
@@ -119,7 +122,8 @@ public function sendEmail($email,$TokenActivate)
                                $mail->addAddress($email);
                                $mail->Subject = 'MIGSED|Restablece tu clave';
                                $mail->isHTML(true);
-                               $mailContent = "<!DOCTYPE html>
+                               
+                             $mailContent = "<!DOCTYPE html>
                            <html>
                            <head>
                                <title>Document</title>
@@ -137,7 +141,8 @@ public function sendEmail($email,$TokenActivate)
                                </a>    
                            </body>
                            </html>";
-                           $mail->Body = $mailContent;
+                        
+                         $mail->Body =$mailContent;
                            
                            // Send email
                            if(!$mail->send()){

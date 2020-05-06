@@ -103,6 +103,14 @@ public function updatePassword()
     $sql = "UPDATE usuarios SET clave=? WHERE email=?"; 
     $this->db->query($sql, array($clave,$email));
     }
+    
+    public function updatepublicacion($idpublicacion,$descripcion)
+    {   
+    $this->idpublicacion=$idpublicacion;
+    $this->descripcion=$descripcion;
+    $sql = "UPDATE publicaciones SET descripcion=? WHERE idpublicacion=?"; 
+    $this->db->query($sql, array($descripcion,$idpublicacion));
+    }
 }
 
 ?>

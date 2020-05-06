@@ -70,4 +70,7 @@
     
         text-align: center;
         }
+        .foto-user{
+          display:none;
+        }
   }

@@ -133,6 +133,16 @@ class Welcome extends CI_Controller {
 						$isActivatedUser=$this->queries->isActivatedUser($email);
 						if($existDB) {
 							if($isActivatedUser){
+								$this->load->model('update');
+								$this->load->model('sendemail');
+								$this->load->helper('generateToken');
+								$token=generateToken();
+								$this->sendemail->mailrecover($token,$email);
+								$this->update->UpdateTokenRecover($token,$email);
+
+								$_SESSION['message5'] = 'Hemos enviado un enviado un correo a tu email para reestablecer tu contraseña';
+                                redirect('Welcome/recover');
+								/*
 								if($ValidationTime){
 									$this->load->helper('generateToken');
 									$this->load->model('sendemail');
@@ -144,12 +154,15 @@ class Welcome extends CI_Controller {
 									$_SESSION['message5'] = 'Hemos enviado un enviado un correo a tu email para reestablecer tu contraseña';
 									redirect('Welcome/recover');
 									}
+									*/
+									/*
 									else {
 									$email=$this->input->post('email');
 									$TimeRemaing=$this->queries->GetTimeRemaingRecover($email);
 									$_SESSION['message7'] = 'Faltan '.$TimeRemaing.' minutos para volver a enviar un enlace de recuperacion';
 									redirect('Welcome/recover');
 									}
+								*/	
 
 							}
 							else{
@@ -212,9 +225,9 @@ class Welcome extends CI_Controller {
 			$this->load->model('gets');
 			$data=array(
 				'usuarios'=>$this->gets->getRowUser(),
-				'carreraUser'=>$this->gets->getByidCarrera()
+				'carreraUser'=>$this->gets->getByidCarrera(),
+				'publicaciones'=>$this->gets->getPublicaciones()
 			);
-			
 			$this->load->view('index',$data);
 		}
 		else{
@@ -251,6 +264,27 @@ class Welcome extends CI_Controller {
 		}		
 
 	}
+		public function publicar()
+	    {
+			$this->load->model('gets');
+			$data=array(
+				'usuarios'=>$this->gets->getRowUser(),
+				'carreraUser'=>$this->gets->getByidCarrera()
+			);
+			$this->form_validation->set_rules('descripcion','descripcion','required');
+			if($this->form_validation->run()==false){
+				$this->load->view('index',$data);
+			}
+			else{
+					$descripcion=$this->input->post('descripcion');
+					$this->load->model('insert');
+					$this->insert->insertpublicacion($descripcion);
+					$_SESSION['message26'] = 'Su publicacion se ha registrado correctamente';
+					redirect('welcome');
+
+					
+			}
+	    }
 
 
 
@@ -266,6 +300,27 @@ class Welcome extends CI_Controller {
 		$this->session->sess_destroy();
 		session_unset ();
 		redirect('Welcome/login');
+
+	}
+
+	
+	public function eliminarpublicacion()
+	{
+	 $this->input->post('eliminar');
+	 $this->load->model('delete');
+	 $idpublicacion=$this->input->post('idpublicacion');
+	 $this->delete->eliminarpublicacion($idpublicacion);
+	 $_SESSION['message26'] = 'Su publicacion se ha eliminado exitosamente';
+	 redirect('welcome');
+	}
+	public function editarpublicacion()
+	{
+	$this->load->model('update');
+	$idpublicacion=$this->input->post('idpublicacion');
+	$descripcion=$this->input->post('descripcion');
+	$this->update->updatepublicacion($idpublicacion,$descripcion);
+	$_SESSION['message27'] = 'Su publicacion se ha actualizado correctamente';
+	redirect('welcome');
 
 	}
 }

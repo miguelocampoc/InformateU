@@ -12,7 +12,7 @@
 
                              <li>
 
-                                 <a href="<?php  echo base_url()?>index.php/welcome"><i class="fas fa-home"></i> Home</a>
+                                 <a href="<?php  echo base_url()?>index.php/welcome"><img id="img-navbar" src="<?php  echo base_url()?>/images/migsed-favicon.jpeg"></i> MIGSED</a>
                  
                              </li>
                              

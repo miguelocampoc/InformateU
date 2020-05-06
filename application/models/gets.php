@@ -51,7 +51,34 @@ public function getRowUser()
         $row=$result->row();
         return $row->iduser;
     }
-    
+    public function getPublicaciones()
+    {
+        $sql = "SELECT idpublicacion,nombre,apellidos,foto,descripcion FROM publicaciones INNER JOIN usuarios  ON usuarios.iduser=publicaciones.iduser ORDER BY idpublicacion DESC"; 
+        return $this->db->query($sql);
+        
+    }
+    public function isPublicUser($idpublicacion)
+    {
+        $this->idpublicacion=$idpublicacion;
+        $iduser= $_SESSION['iduser'];       
+        $sql="SELECT* FROM publicaciones WHERE idpublicacion=? AND iduser=? ";
+        $result=$this->db->query($sql,array($idpublicacion,$iduser));
+        $numrow= $result->num_rows();
+        if($numrow==1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function numrowscomments($idpublicacion)
+    {
+       $this->idpublicacion=$idpublicacion;
+       $sql="SELECT descripcion FROM respuestas WHERE idpublicacion=?";
+       $result=$this->db->query($sql,array($idpublicacion));
+       return $result->num_rows();
+
+    }
    
 }
 ?>
