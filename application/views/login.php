@@ -100,7 +100,7 @@
 
                             </div>
                             <div class="row">
-                                    <div class="col-md-12 border" id="div-darkgrey">
+                                    <div class="col-md-12 " id="div-darkgrey">
                                                 <div class="row justify-content-center" >
                                                  <p  > ¿No tienes cuenta? <a href="<?php echo base_url()?>index.php/welcome/register">Registrate aqui</a> </p>
                                                 </div>

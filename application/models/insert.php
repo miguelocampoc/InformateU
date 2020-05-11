@@ -42,5 +42,17 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
         return  $this->db->insert('publicaciones',$data);
 
     }
+    public function publicarComentario($idpublicacion,$descripcion){
+        $this->idpublicacion=$idpublicacion;
+        $this->descripcion=$descripcion;
+        $iduser=$_SESSION['iduser'];
+        $data= [ 
+            'iduser'=> $iduser,
+            'idpublicacion'=> $idpublicacion,
+            'descripcion'=>$descripcion
+        ];
+        return  $this->db->insert('comentarios',$data);
+
+    }
 }
 ?>

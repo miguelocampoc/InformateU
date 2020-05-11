@@ -60,6 +60,13 @@ $(document).ready(function(){
 
 
   });
+  $(document).on('click', '#EditarComentario', function(){
+    var id=$(this).val();
+    $(".comentario"+id).css("display", "none");
+    $("#textareacomentario"+id).css("display", "block");
+    $("#buttoncomentario"+id).css("display", "block");
+
+  });
  
 });
 </script>
@@ -76,7 +83,12 @@ $(document).ready(function(){
                  <p> Bienvenido: <?php echo $row->nombre ?> <?php echo $row->apellidos ?></p>
                  <div class="row justify-content-center">
                                                       <div class="col-md-12">
-                                                      <div class="row justify-content-center"><img id="img-profile" class="foto-user" src="<?php echo base_url()?>/images/<?php echo $row->foto ?>"></img></div><br>
+                                                      <div class="row justify-content-center"> <?php if($row->foto<>"NULL"){?>
+                                                <img id="img-profile" class="foto-user" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
+                                                <?php }else{?>
+                                                <img id="img-profile"  class="foto-user" src="<?php echo base_url()?>/images/fotouser.png"> </img>
+
+                                            <?php }?></div><br>
                                                         <div class="list-group" id="list-tab" role="tablist">
                                                         <a class="list-group-item list-group-item-action active" href="" >Home</a>
                                                         <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/user/profileAjustes" >Mi muro </a>
@@ -101,8 +113,8 @@ $(document).ready(function(){
                          <div class="row border-right border-left border-bottom  shadow p-3 mb-5 bg-white rounded">
                                 <div class="col-md-2" style="background-color:white">
                                 <div class="row justify-content-center"> 
-                                        <?php foreach($usuarios->result() as $row2){?>
-                                            <?php if($row2->foto<>"NULL"){?>
+                                        <?php foreach($usuarios->result() as $row){?>
+                                            <?php if($row->foto<>"NULL"){?>
                                                 <img id="img-profile-home" class="foto-user" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
                                                 <?php }else{?>
                                                 <img id="img-profile-home"  class="foto-user" src="<?php echo base_url()?>/images/fotouser.png"> </img>
@@ -185,9 +197,66 @@ $(document).ready(function(){
                                    
                                   </div>
                                   <?php $numrows= $this->gets->numrowscomments($idpublicacion);?>
-                                  <button type="button"  class="comentarios" id="comentarios"  value="<?php echo $row->idpublicacion?>">Ver comentarios (<?php echo $numrows?>)</button>
-                                  <div class="card-body<?php echo $row->idpublicacion ?>" id="card-body<?php echo $row->idpublicacion ?>" style="display:none">
-                                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                  <div class="col-md-9"><button type="button"  class="comentarios" id="comentarios"  value="<?php echo $row->idpublicacion?>">Ver comentarios (<?php echo $numrows?>)</button></div><div class="col-md-2"><button type="button"  class="comentarios" id="comentarios"  value="<?php echo $row->idpublicacion?>">Comentar</button></div><div class="col-md-1"><a href="">Like</a></div> 
+                                  <div class="card-body<?php echo $row->idpublicacion ?> card-body" id="card-body<?php echo $row->idpublicacion ?>" style="display:none">
+                                    <?php $result=$this->gets->getComments($idpublicacion); ?> 
+                                     <?php foreach ($result->result() as $row){?>
+                                       <div class="row border">
+                                       <div class="col-md-2">
+                                       <?php if($row->foto<>"NULL"){?>
+                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
+                                                <?php }else{?>
+                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/fotouser.png"> </img>
+
+                                            <?php }?>                                        </div>
+                                       <div class="col-md-10">
+                                                              <div class="row">
+                                                               <div class="col-md-11">
+                                                               
+                                                               <p class="comentario<?php echo $row->idrespuesta; ?>"><?php echo $row->descripcion;  ?></p>
+                                                               <form action="<?php  echo site_url('welcome/EditarComentario')?>" method="POST">
+                                                                  <input type="hidden" name="idrespuesta" value="<?php echo $row->idrespuesta?>"> </input>
+                                                                  <textarea id="textareacomentario<?php echo $row->idrespuesta?>" style="display:none" name="descripcion" class="form-control mb-2  " value="<?php echo $row->descripcion ?>"><?php  echo $row->descripcion?></textarea>
+                                                                  <button type="submit" id="buttoncomentario<?php echo $row->idrespuesta ?>" style="display:none" class="btn btn-primary mb-2 btn-sm   "> editar</button>
+                                                                </form>
+                                                               </div>
+                                                               <div class="col-md-1">
+                                                               <?php $idrespuesta= $row->idrespuesta;?>
+                                                                  <?php $result=$this->gets->ValidationEditUser($idpublicacion,$idrespuesta);?>
+                                                                  <?php if($result){?>
+                                                               <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
+                                                                          <li class="nav-item dropdown">
+                                                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                </a>
+                                                                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                                                <a  ><form id="frm-eliminar" method="POST" action="<?php echo site_url('welcome/EliminarComentario')?>"><input type="hidden" name="idrespuesta" value="<?php echo $row->idrespuesta?>"></input> <button type="submit" id="eliminar"name="eliminar" class= "col-md-12 ">Eliminar </button><br></form></a>
+                                                                                <a> <button type="submit"  id="EditarComentario" value="<?php echo $idrespuesta?>" name="editar"  class= "col-md-12 ">editar </button></a>
+                                                                                </div>
+                                                                            </li>
+                                                                  </div>
+                                                                  <?php } ?>
+                                                                </div>
+                                                          </div>
+                                      </div>
+                                      </div><br>
+                                     <?php }?>
+                                     <div class="row">
+                                              <div class="col-md-2">
+                                              <?php if($row->foto<>"NULL"){?>
+                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
+                                                <?php }else{?>
+                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/fotouser.png"> </img>
+
+                                            <?php }?>   
+                                           </div>
+                                              <div class="col-md-10">
+                                              <form action="<?php echo site_url('welcome/publicarComentario')?>" method="POST">
+                                              <input type="hidden" name="idpublicacion" value="<?php echo $idpublicacion  ?>"></input>
+                                              <textarea class="form-control mb-2 " name="descripcion" splaceholder="Escribe tu comentario aqui"></textarea>
+                                              <button type="submit" style="float:right" class="btn btn-primary btn-sm  mb-2 "> Publicar</button>
+                                              </form>
+                                              </div>
+                                     </div>
                                     </div>
 
                            </div>

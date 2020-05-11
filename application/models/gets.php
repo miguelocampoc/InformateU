@@ -74,11 +74,32 @@ public function getRowUser()
     public function numrowscomments($idpublicacion)
     {
        $this->idpublicacion=$idpublicacion;
-       $sql="SELECT descripcion FROM respuestas WHERE idpublicacion=?";
+       $sql="SELECT descripcion FROM comentarios WHERE idpublicacion=?";
        $result=$this->db->query($sql,array($idpublicacion));
        return $result->num_rows();
 
     }
-   
+    public function getComments($idpublicacion)
+    {
+       $this->idpublicacion=$idpublicacion;
+       $sql="SELECT descripcion,foto,idrespuesta FROM comentarios INNER JOIN usuarios ON usuarios.iduser=comentarios.iduser WHERE idpublicacion=?";
+       return $this->db->query($sql,array($idpublicacion));
+
+    }
+    public function ValidationEditUser($idpublicacion,$idrespuesta)
+    {
+     $this->idpublicacion=$idpublicacion;
+     $this->idrespuesta=$idrespuesta;
+     $iduser= $_SESSION['iduser'];       
+     $sql="SELECT *FROM comentarios WHERE idrespuesta=? AND idpublicacion=? AND iduser=?";
+     $numrows=$this->db->query($sql,array($idrespuesta,$idpublicacion,$iduser))->num_rows();
+     if($numrows==1){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+    } 
 }
 ?>

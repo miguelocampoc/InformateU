@@ -323,4 +323,36 @@ class Welcome extends CI_Controller {
 	redirect('welcome');
 
 	}
+	public function publicarComentario()
+	{
+	$this->load->model('insert');
+	$idpublicacion=$this->input->post('idpublicacion');
+	$descripcion=$this->input->post('descripcion');
+	$result=$this->insert->publicarComentario($idpublicacion,$descripcion);
+	if($result){
+	 redirect('welcome');
+	}
+	else{
+		echo "ha ocurrido un error";
+	}
+
+	}
+	public function EliminarComentario()
+	{
+	 $this->load->model('delete');
+	 $idrespuesta= $this->input->post('idrespuesta');
+	 $this->delete->EliminarComentario($idrespuesta);
+	 redirect('welcome');
+
+	}
+	public function EditarComentario()
+	{
+		$this->load->model('update');
+		$descripcion= $this->input->post('descripcion');
+		$idrespuesta= $this->input->post('idrespuesta');
+		$this->update->EditarComentario($idrespuesta,$descripcion);
+         redirect('welcome');
+        
+
+	}
 }

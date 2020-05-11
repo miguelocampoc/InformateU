@@ -111,6 +111,14 @@ public function updatePassword()
     $sql = "UPDATE publicaciones SET descripcion=? WHERE idpublicacion=?"; 
     $this->db->query($sql, array($descripcion,$idpublicacion));
     }
+    public function EditarComentario($idrespuesta,$descripcion){
+      $this->idrespuesta=$idrespuesta;
+      $this->descripcion=$descripcion;
+      $sql = "UPDATE comentarios SET descripcion=? WHERE idrespuesta=?"; 
+      $this->db->query($sql, array($descripcion,$idrespuesta));
+
+
+    }
 }
 
 ?>
