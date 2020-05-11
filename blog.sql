@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2020 a las 17:08:59
+-- Tiempo de generación: 11-05-2020 a las 03:52:01
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.26
 
@@ -49,6 +49,27 @@ INSERT INTO `carreras` (`idcarrera`, `carrera`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comentarios`
+--
+
+CREATE TABLE `comentarios` (
+  `idrespuesta` int(10) NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `idpublicacion` int(10) NOT NULL,
+  `iduser` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`idrespuesta`, `descripcion`, `idpublicacion`, `iduser`) VALUES
+(11, 'kjjkkj', 76, 192),
+(20, 'kmknjnj', 76, 191);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `publicaciones`
 --
 
@@ -63,34 +84,7 @@ CREATE TABLE `publicaciones` (
 --
 
 INSERT INTO `publicaciones` (`idpublicacion`, `descripcion`, `iduser`) VALUES
-(60, ' rsdsdssdd', 191),
-(61, 'Holaaahjjh', 191),
-(64, ' kkskssddsdaa', 191),
-(67, ' ffdsffdsdd', 191),
-(68, ' fdmsklmsfkmsf', 191),
-(69, ' klmkllñ\r\n', 191),
-(70, ' gffggfgfgf', 192),
-(71, ' KLNLK', 191);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `respuestas`
---
-
-CREATE TABLE `respuestas` (
-  `idrespuesta` int(10) NOT NULL,
-  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `idpublicacion` int(10) NOT NULL,
-  `iduser` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `respuestas`
---
-
-INSERT INTO `respuestas` (`idrespuesta`, `descripcion`, `idpublicacion`, `iduser`) VALUES
-(2, 'dffddffd', 60, 191);
+(76, ' Hola a todos', 191);
 
 -- --------------------------------------------------------
 
@@ -137,18 +131,18 @@ ALTER TABLE `carreras`
   ADD PRIMARY KEY (`idcarrera`);
 
 --
+-- Indices de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`idrespuesta`),
+  ADD KEY `idpublicacion` (`idpublicacion`),
+  ADD KEY `iduser` (`iduser`);
+
+--
 -- Indices de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
   ADD PRIMARY KEY (`idpublicacion`),
-  ADD KEY `iduser` (`iduser`);
-
---
--- Indices de la tabla `respuestas`
---
-ALTER TABLE `respuestas`
-  ADD PRIMARY KEY (`idrespuesta`),
-  ADD KEY `idpublicacion` (`idpublicacion`),
   ADD KEY `iduser` (`iduser`);
 
 --
@@ -169,16 +163,16 @@ ALTER TABLE `carreras`
   MODIFY `idcarrera` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
 
 --
+-- AUTO_INCREMENT de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
-
---
--- AUTO_INCREMENT de la tabla `respuestas`
---
-ALTER TABLE `respuestas`
-  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -191,17 +185,17 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- Filtros para la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `usuarios` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
   ADD CONSTRAINT `publicaciones_ibfk_2` FOREIGN KEY (`iduser`) REFERENCES `usuarios` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `respuestas`
---
-ALTER TABLE `respuestas`
-  ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `usuarios` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`
