@@ -203,12 +203,14 @@ $(document).ready(function(){
                                      <?php foreach ($result->result() as $row){?>
                                        <div class="row border">
                                        <div class="col-md-2">
+
                                        <?php if($row->foto<>"NULL"){?>
                                                 <img id="img-profile-home" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
                                                 <?php }else{?>
                                                 <img id="img-profile-home" src="<?php echo base_url()?>/images/fotouser.png"> </img>
 
-                                            <?php }?>                                        </div>
+                                                 <?php }?>     
+                                                </div>
                                        <div class="col-md-10">
                                                               <div class="row">
                                                                <div class="col-md-11">
@@ -242,12 +244,16 @@ $(document).ready(function(){
                                      <?php }?>
                                      <div class="row">
                                               <div class="col-md-2">
-                                              <?php if($row->foto<>"NULL"){?>
-                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
+                                              <?php foreach ($usuarios->result() as $row3){?>
+
+                                              <?php if($row3->foto<>"NULL"){?>
+                                                <img id="img-profile-home" src="<?php echo base_url()?>/images/<?php  echo $row3->foto?>"> </img>
                                                 <?php }else{?>
                                                 <img id="img-profile-home" src="<?php echo base_url()?>/images/fotouser.png"> </img>
 
-                                            <?php }?>   
+                                            <?php }?>
+                                            <?php }?>
+
                                            </div>
                                               <div class="col-md-10">
                                               <form action="<?php echo site_url('welcome/publicarComentario')?>" method="POST">
