@@ -34,24 +34,8 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
     }
     public function insertpublicacion($descripcion,$file){
         $this->load->model('gets');
-        $rows=$this->gets->getPublicaciones()->num_rows();
         $this->descripcion=$descripcion;
         $this->file=$file;
-        
-        if($file=="jpg"||$file=="png"||$file=="jpeg"||$file=="pdf"||$file=="xlsx"||$file=="docx"){
-            $file='archivo.'.$file;
-        }
-        else{
-            if($file==""){
-                $_SESSION['message27'] = 'Publicacion realizada exitosamenrte';
-
-            }
-            else{
-                $_SESSION['message27'] = 'Solo se admiten formatos jpg,jpeg,png,pdf,xlsx y docx';
-                redirect('welcome');
-            }
-        }
-
         $iduser=$_SESSION['iduser'];
         $data= [ 
             'iduser'=> $iduser,

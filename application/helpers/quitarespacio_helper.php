@@ -53,5 +53,18 @@ function Quitar_Espaciosdescripcion($descripcion)
     }
   return  trim($salida);
 }
+function Quitar_EspaciosArchivo($archivo)
+{
+
+    $array = explode(' ',$archivo);  // convierte en array separa por espacios;
+    $salida ='';
+    // quita los campos vacios y pone un solo espacio
+    for ($i=0; $i < count($array); $i++) { 
+        if(strlen($array[$i])>0) {
+            $salida.= ' ' . $array[$i];
+        }
+    }
+  return  trim($salida);
+}
 
 ?>

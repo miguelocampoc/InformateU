@@ -39,7 +39,7 @@
                                                    <?php if($row->foto<>"NULL"){?>
                                                  <img id="img-profile" src="<?php echo base_url()?>/images/<?php  echo $row->foto?>"> </img>
                                                    <?php }else{?>
-                                                    <img id="img-profile" src="<?php echo base_url()?>/images/fotouser.png"> </img>
+                                                    <img id="img-profile" src="<?php echo base_url()?>/images/fotouser.svg"> </img>
 
                                                    <?php }?>
                                             

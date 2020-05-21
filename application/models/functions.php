@@ -35,14 +35,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }
   public function cargarimagenpublication($file)
     {      
-        $this->load->model('gets');
-        $rows=$this->gets->getPublicaciones()->num_rows(); 
+        
         $this->file=$file;
-        $file =  pathinfo($file, PATHINFO_EXTENSION);	
        
         $mi_archivo ='foto';
         $config['upload_path'] = "images/";
-        $config['file_name'] = 'archivo'.$rows.$file;
+        $config['file_name'] = $file;
         $config['allowed_types'] = "jpg|png|jpeg|xlsx|pdf|docx";
         $config['max_size'] = "0";
         $config['max_width'] = "0";

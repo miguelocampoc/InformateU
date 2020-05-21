@@ -283,13 +283,31 @@ class Welcome extends CI_Controller {
 				
 						}
 			else{
+
+				    $this->load->model('insert');
 					$descripcion=$this->input->post('descripcion');
 					$file=$_FILES['foto']['name'];
-					$file =  pathinfo($file, PATHINFO_EXTENSION);	
-					$this->load->model('insert');
-					$result1=$this->insert->insertpublicacion($descripcion,$file);
-				    $result=$this->functions->cargarimagenpublication($file);
-                    redirect('welcome');
+					$file=str_replace(' ', '-', $file);
+					$tipo= pathinfo($file, PATHINFO_EXTENSION);
+					if ($tipo=="PNG" or $tipo=="JPEG" or $tipo=="JPG" or $tipo=="PDF" or $tipo=="DOCX" or $tipo=="xlsx" or $tipo=="png" or $tipo=="jpeg" or $tipo=="jpg" or $tipo=="pdf" or $tipo=="docx" or $tipo=="xlsx"){
+					    $this->insert->insertpublicacion($descripcion,$file);
+						$this->functions->cargarimagenpublication($file);
+						$_SESSION['message30'] =  'Su publicacion fue exitosa';
+						  redirect('welcome');
+						  
+					}
+					else if($tipo=="") {
+					$file="NULL";
+					$this->insert->insertpublicacion($descripcion,$file);
+					$_SESSION['message30'] =  'Su publicacion fue exitosa';
+
+					redirect('welcome');
+					}
+					else{
+						$_SESSION['message30'] =  'Los formatos admitidos son: JPEG,PNG,JPEF,PDF,DOCX Y XLSX';
+                        redirect('welcome');
+					}
+                  
                   
 		}
 	}

@@ -24,7 +24,7 @@
                                 <?php if($row->foto<>"NULL"){?>
                                   <a>  <img id="img-navbar" src="<?php  echo base_url()?>/images/<?php  echo $row->foto ?>"></img> <?php echo $row->nombre ?> <?php echo $row->apellidos ?> </a>
                                                 <?php }else{?>
-                                                    <a>  <img id="img-navbar" src="<?php  echo base_url()?>/images/fotouser.png"></img> <?php echo $row->nombre ?> <?php echo $row->apellidos ?> </a>
+                                                    <a>  <img id="img-navbar" src="<?php  echo base_url()?>/images/fotouser.svg"></img> <?php echo $row->nombre ?> <?php echo $row->apellidos ?> </a>
 
                                             <?php }?>
                              <?php } ?>
