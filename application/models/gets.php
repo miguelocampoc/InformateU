@@ -53,7 +53,7 @@ public function getRowUser()
     }
     public function getPublicaciones()
     {
-        $sql = "SELECT idpublicacion,nombre,apellidos,foto,descripcion FROM publicaciones INNER JOIN usuarios  ON usuarios.iduser=publicaciones.iduser ORDER BY idpublicacion DESC"; 
+        $sql = "SELECT idpublicacion,nombre,apellidos,foto,archivo,descripcion FROM publicaciones INNER JOIN usuarios  ON usuarios.iduser=publicaciones.iduser ORDER BY idpublicacion DESC"; 
         return $this->db->query($sql);
         
     }
@@ -101,5 +101,13 @@ public function getRowUser()
     }
 
     } 
+    public function getlikes($idpublicacion)
+    {
+       $this->idpublicacion=$idpublicacion;
+       $sql="SELECT likes  FROM publicaciones  WHERE idpublicacion=?";
+       $result= $this->db->query($sql,array($idpublicacion));
+       $row= $result->row();
+       return $row->likes;
+    }
 }
 ?>

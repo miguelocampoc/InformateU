@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 public function updatePassword()
     {  
        $id= htmlspecialchars($_GET["id"]);
-       $clave =  password_hash($this->input->post("clave"),PASSWORD_DEFAULT);
+       $clave =  password_hash($this->input->post("clave"),PASSWORD_ARGON2I);
        $sql="UPDATE usuarios SET clave=?,token=? WHERE iduser=?";
        $result= $this->db->query($sql, array($clave,"NULL",$id));
       
@@ -57,7 +57,7 @@ public function updatePassword()
     public function UpdateTokenRecover($token,$email)
     {  
       $this->$token=$token;
-      $token=password_hash($token,PASSWORD_DEFAULT);
+      $token=password_hash($token,PASSWORD_ARGON2I);
       $this->$email=$email;
       $sql = "UPDATE usuarios SET token=? WHERE email=?"; 
       $this->db->query($sql, array($token,$email));
@@ -77,7 +77,7 @@ public function updatePassword()
     {   
       $this->$token=$token;
       $this->iduser=$iduser;
-      $token=password_hash($token,PASSWORD_DEFAULT);
+      $token=password_hash($token,PASSWORD_ARGON2I);
       $sql = "UPDATE usuarios SET tokenUpdateEmail=? WHERE iduser=?"; 
       $this->db->query($sql, array($token,$iduser));
      
@@ -99,7 +99,7 @@ public function updatePassword()
     {   
     $this->clave=$clave;
     $email= $_SESSION['email'];
-    $clave=password_hash($clave,PASSWORD_DEFAULT);
+    $clave=password_hash($clave,PASSWORD_ARGON2I);
     $sql = "UPDATE usuarios SET clave=? WHERE email=?"; 
     $this->db->query($sql, array($clave,$email));
     }

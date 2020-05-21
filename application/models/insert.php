@@ -19,10 +19,10 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
             'usuario'=>$usuario,
             'foto' =>$foto,
             'email'=>$email,
-            'clave'=> password_hash($clave,PASSWORD_DEFAULT/*,array("cost"=>12)  */),
+            'clave'=> password_hash($clave,PASSWORD_ARGON2I/*,array("cost"=>12)  */),
             'data_register'=>$DataRegister,
             'DateTimeRecover'=>$DataRegister,
-            'TokenActivate'=>password_hash($TokenActivate,PASSWORD_DEFAULT),
+            'TokenActivate'=>password_hash($TokenActivate,PASSWORD_ARGON2I),
             'token' => 'NULL',
             'tipo'=>'Activated',
             'idcarrera'=>10000
@@ -32,12 +32,31 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
     
        
     }
-    public function insertpublicacion($descripcion){
+    public function insertpublicacion($descripcion,$file){
+        $this->load->model('gets');
+        $rows=$this->gets->getPublicaciones()->num_rows();
         $this->descripcion=$descripcion;
+        $this->file=$file;
+        
+        if($file=="jpg"||$file=="png"||$file=="jpeg"||$file=="pdf"||$file=="xlsx"||$file=="docx"){
+            $file='archivo.'.$file;
+        }
+        else{
+            if($file==""){
+                $_SESSION['message27'] = 'Publicacion realizada exitosamenrte';
+
+            }
+            else{
+                $_SESSION['message27'] = 'Solo se admiten formatos jpg,jpeg,png,pdf,xlsx y docx';
+                redirect('welcome');
+            }
+        }
+
         $iduser=$_SESSION['iduser'];
         $data= [ 
             'iduser'=> $iduser,
-            'descripcion'=>$descripcion
+            'descripcion'=>$descripcion,
+            'archivo'=>$file
         ];
         return  $this->db->insert('publicaciones',$data);
 
@@ -49,7 +68,7 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
         $data= [ 
             'iduser'=> $iduser,
             'idpublicacion'=> $idpublicacion,
-            'descripcion'=>$descripcion
+            'descripcion'=>$descripcion,
         ];
         return  $this->db->insert('comentarios',$data);
 

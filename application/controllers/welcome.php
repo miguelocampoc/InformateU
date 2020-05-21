@@ -206,7 +206,7 @@ class Welcome extends CI_Controller {
 							 else{
                               echo "no se pudo reestablecer su contraseña, intente de nuevo";
 							 }
-
+                         
 						}
 		}
 		else{
@@ -266,28 +266,53 @@ class Welcome extends CI_Controller {
 	}
 		public function publicar()
 	    {
+			$this->form_validation->set_error_delimiters('', '');
+
+			$this->load->model('functions');
 			$this->load->model('gets');
 			$data=array(
 				'usuarios'=>$this->gets->getRowUser(),
-				'carreraUser'=>$this->gets->getByidCarrera()
+				'carreraUser'=>$this->gets->getByidCarrera(),
+				'publicaciones'=>$this->gets->getPublicaciones()
+
 			);
 			$this->form_validation->set_rules('descripcion','descripcion','required');
+
 			if($this->form_validation->run()==false){
 				$this->load->view('index',$data);
-			}
+				
+						}
 			else{
 					$descripcion=$this->input->post('descripcion');
+					$file=$_FILES['foto']['name'];
+					$file =  pathinfo($file, PATHINFO_EXTENSION);	
 					$this->load->model('insert');
-					$this->insert->insertpublicacion($descripcion);
-					$_SESSION['message26'] = 'Su publicacion se ha registrado correctamente';
-					redirect('welcome');
+					$result1=$this->insert->insertpublicacion($descripcion,$file);
+				    $result=$this->functions->cargarimagenpublication($file);
+                    redirect('welcome');
+                  
+		}
+	}
 
-					
+
+		public function publicacionesUser()
+		{
+			$this->load->helper('Autenticate');
+			$Auth= Auth();
+			
+			if($Auth){
+				$this->load->model('gets');
+				$data=array(
+					'usuarios'=>$this->gets->getRowUser(),
+					'carreraUser'=>$this->gets->getByidCarrera(),
+					'publicaciones'=>$this->gets->getPublicaciones()
+				);
+				$this->load->view('mispublicaciones',$data);
 			}
-	    }
-
-
-
+			else{
+				redirect('Welcome/login');
+			}	
+		}
 
 	public function error404()
 	{
@@ -354,5 +379,10 @@ class Welcome extends CI_Controller {
          redirect('welcome');
         
 
+	}
+	public function recargar () {
+		$this->load->model('gets');
+		$a = ['usuarios' => $this->gets->getPublicaciones()];
+		$this->load->view('publicaciones', $a);
 	}
 }

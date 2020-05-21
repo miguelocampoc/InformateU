@@ -30,13 +30,13 @@
                              <?php } ?>
                                  <ul id="hidden" class="children">
                                  <li id="hidden-li">
-                                    <a href="<?php  echo base_url()?>index.php/welcome"> <i class="fas fa-home"></i> Home</a>
+                                    <a href="<?php  echo base_url()?>index.php/welcome"> Home</a>
                      
                                    </li>  
                                    
-                                     <li> <a href="<?php  echo base_url()?>index.php/user/profile"><i class="fas fa-user-circle"></i> Mi cuenta</a></li>
+                                     <li> <a href="<?php  echo base_url()?>index.php/user/profile"> Mi cuenta</a></li>
 
-                                     <li><a href="<?php  ECHO base_url()?>index.php/welcome/logout"> <i class="fas fa-power-off"></i> Cerrar sesion</a></li>
+                                     <li><a href="<?php  ECHO base_url()?>index.php/welcome/logout"> Cerrar sesion</a></li>
                                  </ul>
                              </li>
                              

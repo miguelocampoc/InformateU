@@ -76,7 +76,7 @@ class user extends CI_Controller {
            $result=$this->functions->cargarimagen($tipo,$iduser);
            if($result){
             $this->update->subirfoto($tipo,$iduser);
-            $_SESSION['message21'] = 'Tu foto se ha actualizado correctamente';
+            $_SESSION['message27'] = 'Tu foto se ha actualizado correctamente';
            }
            else{
             $_SESSION['message21'] = 'Su documento no es un formato de imagen o supera el limite admitido';
