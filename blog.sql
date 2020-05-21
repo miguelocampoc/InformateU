@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2020 a las 03:52:01
+-- Tiempo de generación: 21-05-2020 a las 18:03:52
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.26
 
@@ -59,14 +59,6 @@ CREATE TABLE `comentarios` (
   `iduser` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `comentarios`
---
-
-INSERT INTO `comentarios` (`idrespuesta`, `descripcion`, `idpublicacion`, `iduser`) VALUES
-(11, 'kjjkkj', 76, 192),
-(20, 'kmknjnj', 76, 191);
-
 -- --------------------------------------------------------
 
 --
@@ -76,15 +68,20 @@ INSERT INTO `comentarios` (`idrespuesta`, `descripcion`, `idpublicacion`, `iduse
 CREATE TABLE `publicaciones` (
   `idpublicacion` int(10) NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `iduser` int(10) NOT NULL
+  `iduser` int(10) NOT NULL,
+  `archivo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `likes` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `publicaciones`
 --
 
-INSERT INTO `publicaciones` (`idpublicacion`, `descripcion`, `iduser`) VALUES
-(76, ' Hola a todos', 191);
+INSERT INTO `publicaciones` (`idpublicacion`, `descripcion`, `iduser`, `archivo`, `likes`) VALUES
+(382, 'Prueba documento', 196, 'Taller1_MiguelOcampo_07052020.pdf', 0),
+(383, 'Prueba documento', 196, 'NAT-ESTATICA-Y-DINAMICA-TRABAJOI.pdf', 0),
+(384, 'Prueba imagen', 196, 'carro.jpg', 0),
+(385, ' Prueba documento ', 196, 'Modelo-de-Transbordo.xlsx', 0);
 
 -- --------------------------------------------------------
 
@@ -117,8 +114,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`iduser`, `nombre`, `usuario`, `email`, `clave`, `token`, `foto`, `DateTimeRecover`, `data_register`, `apellidos`, `TokenActivate`, `tipo`, `genero`, `cumpleaños`, `biografia`, `idcarrera`, `tokenUpdateEmail`) VALUES
-(191, 'miguel', 'miguel09', 'miguelocampoc@gmail.com', '$2y$10$vz5q6Y1pNg7UniULg/e/YeL0AzPlYBtRDjmGHw5ScfJdiVDsxDt72', '$2y$10$6HyAM2MokRhFp2v.BJpguuaDKZTP5yRDBTS70UDh23CAXju4duZFa', 'fotouser191.png', '2020-05-06 15:22:00', '2020-04-29 19:47:00', 'ocampo', '$2y$10$rcIY5NBM3InHidLJH/EEFen7iiwQPbyB.eehgjE2UZkvBu4eF5mKK', 'Activated', '', '0000-00-00', 'Estudiante de ingenieria de sistemas', 1, '$2y$10$DdfnwDMiLm.fuirioiE11OgRjCcetUpomHUDQ2HrJj8NErJPhhyLC'),
-(192, 'miguel', 'ocampo09', 'magelosac@gmail.com', '$2y$10$vBwN0Jf9yTLJCo9czn.JCe3llqMvawF3FBe0x67wxU0SAqFyYvtna', 'NULL', 'NULL', '2020-05-06 01:37:00', '2020-05-06 01:37:00', 'ocampo', 'NULL', 'Actived', '', '0000-00-00', '', 10000, '');
+(196, 'miguel', 'miguel09', 'miguelocampoc@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$b3l4R2hKenpIZlBzUEIwNw$GNIT4qF8PHoUNoNwj+ex4ZCiYyP+OAEmyxlaiaSjCZU', 'NULL', 'NULL', '2020-05-21 13:21:00', '2020-05-21 13:21:00', 'Ocampo', '$argon2i$v=19$m=65536,t=4,p=1$VDNxZWdjdUZuOTBSaU5PRA$N8sO1dVfIvB5AepYFZr2lDnSyqR+OlIag+3TFJFG9sM', 'Activated', '', '0000-00-00', '', 10000, '');
 
 --
 -- Índices para tablas volcadas
@@ -166,19 +162,19 @@ ALTER TABLE `carreras`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=387;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
 -- Restricciones para tablas volcadas
