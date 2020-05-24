@@ -119,6 +119,30 @@ public function updatePassword()
 
 
     }
+    public function hidelike($idpublicacion){
+      $this->idpublicacion=$idpublicacion;
+      $sql = "UPDATE publicaciones SET likes=likes-1 WHERE idpublicacion=?"; 
+      $this->db->query($sql, array($idpublicacion));
+      $iduser=$_SESSION['iduser'];
+      $sql2="DELETE FROM likes WHERE idpublicacion=? AND iduser=?";
+      $this->db->query($sql2, array($idpublicacion,$iduser));
+
+
+    }
+    public function like($idpublicacion){
+      $this->idpublicacion=$idpublicacion;
+      $sql = "UPDATE publicaciones SET likes=likes+1  WHERE idpublicacion=?"; 
+      $this->db->query($sql, array($idpublicacion));
+      $iduser=$_SESSION['iduser'];
+      $data= [ 
+        'iduser'=> $iduser,
+        'idpublicacion'=>$idpublicacion,
+       ];
+        return  $this->db->insert('likes',$data);
+
+
+
+    }
 }
 
 ?>

@@ -109,5 +109,19 @@ public function getRowUser()
        $row= $result->row();
        return $row->likes;
     }
+    public function validationLike($idpublicacion)
+    {
+       $this->idpublicacion=$idpublicacion;
+       $iduser=$_SESSION['iduser'];
+       $sql="SELECT*FROM likes WHERE idpublicacion=? AND iduser=?";
+       $numrows= $this->db->query($sql,array($idpublicacion,$iduser))->num_rows();
+       if($numrows==1){
+        return true;
+       }
+       else{
+           return false;
+       }
+
+    }
 }
 ?>

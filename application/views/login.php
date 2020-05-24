@@ -9,13 +9,17 @@
     <title>Login</title>
 </head>
 <body>
-
+<style>
+body{
+    background-color:#E1FAF1
+}
+</style>
 <div class="container">
 <br>
         <div class="row  justify-content-center align-items-center minh-100  " >
                 
                     <div class="col-md-8 col-lg-6 col-xl-4">
-                          <div class="row ">
+                          <div class="row bg-white">
                                     <div class="col-md-12 border " id="padding-form">
                                     <form method="POST">
                                                 <div class="row" >
@@ -74,7 +78,7 @@
                                                 </div><br>
                                                 <div class="row">
                                                     <div id="messages-error"><?php  echo  form_error ( 'usuario' );  ?></div>
-                                                    <input type="text" name="email" placeholder="Nombre de Usuario o email" class="form-control form-control" >
+                                                    <input type="text" name="email" placeholder="Ingrese su correo electronico" class="form-control form-control" >
                                                 </div>
                                                 
                                                 <br>
@@ -99,7 +103,7 @@
                                     </div>
 
                             </div>
-                            <div class="row">
+                            <div class="row s border-top border-bottom border-right border-left" style="background-color:#E0E0D9">
                                     <div class="col-md-12 " id="div-darkgrey">
                                                 <div class="row justify-content-center" >
                                                  <p  > ¿No tienes cuenta? <a href="<?php echo base_url()?>index.php/welcome/register">Registrate aqui</a> </p>

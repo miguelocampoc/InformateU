@@ -1,4 +1,3 @@
-/*
 (function($){
 $("#frm-login").submit(function(ev){
 ev.preventDefault();
@@ -20,4 +19,3 @@ $.ajax({
 });
 })
 (jQuery)
-*/

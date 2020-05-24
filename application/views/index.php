@@ -19,6 +19,7 @@
     
 </head>
 <style>
+
  button{
  font-family:Arial;
   outline:none; 
@@ -53,6 +54,7 @@
  .showlike{
     display:none;
  }
+
  
 </style>
 <script>
@@ -99,23 +101,8 @@ $(document).ready(function(){
  
 });
 
-function like(id){
-   div = document.getElementById('click'+id);
-   div.style.display = 'none';
-   div2 = document.getElementById('showlike'+id);
-   div2.style.display = 'block';
 
 
-}
-function hidelike(id){
-   div2 = document.getElementById('showlike'+id);
-   div2.style.display = 'none';
-
-   div = document.getElementById('click'+id);
-   div.style.display = 'block';
-
-
-}
 </script>
 
 
@@ -124,7 +111,7 @@ function hidelike(id){
        <br><br><br>
     <div class="container-fluid" >
        <div class="row">
-                        <div  id="sidemenu" class=" col-lg-2 col-md-3 ">
+                        <div  id="sidemenu" class=" col-lg-2 col-md-3 col-xl-2">
                                        <?php foreach($usuarios->result() as $row){?>
                                           <p class="pt-2" >Bienvenido:<?php echo $row->nombre ?>  <?php echo $row->apellidos ?>
                                           <?php if($row->foto<>"NULL"){?>
@@ -144,13 +131,13 @@ function hidelike(id){
                                        <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/welcome/publicacionesUser" >Mi muro </a>
                                        </div>
                         </div>
-                        <div class="col-md-1 col-lg-3">
+                        <div class="col-md-1 col-lg-1 col-xl-3">
                                                            
                         </div>
                     
-                        <div class="col-lg-7 col-md-6">
+                        <div  class="col-lg-7 col-md-6 col-xl-6">
                        
-                        <div class="row pt-3 pr-3 ">
+                        <div id="tablets" class="row pt-3 pr-3 ">
                                                         
                         <div id="messages-error"><?php  echo  form_error ( 'descripcion' );  ?></div>
               
@@ -296,10 +283,12 @@ function hidelike(id){
                                                                   <div  sytle="text-align:right" class="col-lg-2 col-md-3 ">
                                                                      <div  class="pt-1 pb-1 pr-1">
                                                                      <div class="col-md-12">
-                                                                     <?php $likes= $this->gets->getlikes($row->idpublicacion) ?>
-                                                                     <div  style="font-size:12px;"> <a id="click<?php echo $row->idpublicacion?>" onclick="like('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" > <?php echo $likes ?> <img style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like.svg"></img></a></div>
-                                                                     <div  style="font-size:12px;"> <a id="showlike<?php echo $row->idpublicacion?>"  class="showlike" onclick="hidelike('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" >  <?php echo $likes+1; ?> <img style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like2.svg"></img></a></div>
- 
+                                                                     <?php $likes= $this->gets->getlikes($idpublicacion) ?>
+                                                                     <form  id="like-up<?php echo $row->idpublicacion?>" style="font-size:12px;"><input type="hidden" name="like-up<?php echo $row->idpublicacion?>" value="<?php echo $row->idpublicacion?>"></input><p id="click<?php echo $row->idpublicacion?>" name="like" onclick="like('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" ><?php echo $likes?>  <img id="like" style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like.svg"></img></p></form>
+                                                                     <form  style="font-size:12px; "> <p id="showlike<?php echo $row->idpublicacion?>" name="hidelike" class="showlike" onclick="hidelike('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" > <?php echo $likes?>  <img style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like2.svg"></img></p></form>
+
+                                                                     
+
                                                                      </div>
                                                                      </div>
                                                                   </div>
@@ -312,13 +301,13 @@ function hidelike(id){
                                          
                                              
                         </div>
-                        <div class="col-lg-2 col-md-2">
+                        <div class="col-lg-4 col-md-2 col-xl-2">
 
                          </div>
                       
             </div>
      </div> 
-     <script src="<?php echo base_url()?>/js/peticiones.js"> </script>
+     <script src="<?php echo base_url()?>/js/interaciones.js"> </script>
      <script src="<?php echo base_url()?>/js/script.js"> </script>
 
 

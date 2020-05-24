@@ -9,11 +9,16 @@
     <title>Registro</title>
 </head>
 <body>
+<style>
+body{
+    background-color:#E1FAF1
+}
+</style>
 <br>
 <div class="container">
         <div class=" row justify-content-center align-items-center minh-100">
                 <div class="col-md-8 col-lg-6 col-xl-4">
-                        <div class="row">
+                        <div class="row bg-white">
                                     <div class="col-md-12 border" id="padding-form-register">
                                                
                                                 <div class="row">
@@ -62,7 +67,7 @@
                                                 </div> 
                                     </div>
                             </div>
-                            <div class="row ">
+                            <div class="row  " style="background-color:#E0E0D9">
                                     <div class="col-md-12 border" id="div-darkgrey">
                                                 <div  class="row justify-content-center" >
                                                  <p > ¿ Ya tienes cuenta? <a   href="<?php echo base_url()?>index.php/welcome/login">Inicia Sesion aqui</a> </p>

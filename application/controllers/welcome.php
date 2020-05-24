@@ -403,4 +403,31 @@ class Welcome extends CI_Controller {
 		$a = ['usuarios' => $this->gets->getPublicaciones()];
 		$this->load->view('publicaciones', $a);
 	}
+	public function like () {
+		$this->load->model('update');
+		$this->load->model('gets');
+		$idpublicacion=$this->input->post('id');
+		$result=$this->gets->validationLike($idpublicacion);
+		if($result){
+
+		}
+		else{
+			$this->update->like($idpublicacion);
+
+		}
+		
+	}
+	public function hidelike () {
+		$this->load->model('update');
+		$this->load->model('gets');
+		$idpublicacion=$this->input->post('id');
+		$result=$this->gets->validationLike($idpublicacion);
+         if($result){
+        $this->update->hidelike($idpublicacion);
+		 }
+		 else{
+
+		 }
+		
+	}
 }

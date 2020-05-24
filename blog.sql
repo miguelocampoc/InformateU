@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2020 a las 18:03:52
+-- Tiempo de generación: 24-05-2020 a las 20:19:20
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.26
 
@@ -62,6 +62,18 @@ CREATE TABLE `comentarios` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `likes`
+--
+
+CREATE TABLE `likes` (
+  `idlike` int(10) NOT NULL,
+  `idpublicacion` int(10) NOT NULL,
+  `iduser` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `publicaciones`
 --
 
@@ -80,8 +92,7 @@ CREATE TABLE `publicaciones` (
 INSERT INTO `publicaciones` (`idpublicacion`, `descripcion`, `iduser`, `archivo`, `likes`) VALUES
 (382, 'Prueba documento', 196, 'Taller1_MiguelOcampo_07052020.pdf', 0),
 (383, 'Prueba documento', 196, 'NAT-ESTATICA-Y-DINAMICA-TRABAJOI.pdf', 0),
-(384, 'Prueba imagen', 196, 'carro.jpg', 0),
-(385, ' Prueba documento ', 196, 'Modelo-de-Transbordo.xlsx', 0);
+(384, 'Prueba imagen', 196, 'carro.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -135,6 +146,14 @@ ALTER TABLE `comentarios`
   ADD KEY `iduser` (`iduser`);
 
 --
+-- Indices de la tabla `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`idlike`),
+  ADD KEY `idpublicacion` (`idpublicacion`),
+  ADD KEY `idusuario` (`iduser`);
+
+--
 -- Indices de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
@@ -165,6 +184,12 @@ ALTER TABLE `comentarios`
   MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
+-- AUTO_INCREMENT de la tabla `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `idlike` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
@@ -186,6 +211,12 @@ ALTER TABLE `usuarios`
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `usuarios` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `publicaciones`

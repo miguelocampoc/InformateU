@@ -14,6 +14,7 @@ public function eliminarpublicacion($idpublicacion)
         $sql="DELETE FROM comentarios WHERE idrespuesta=?";
         $this->db->query($sql, array($idrespuesta));
 
-    }  
+    } 
+    
 }
 ?>

@@ -9,11 +9,16 @@
     <title>Login</title>
 </head>
 <body>
+<style>
+body{
+    background-color:#E1FAF1
+}
+</style>
 <br>
 <div class="container">
 <div class="row justify-content-center align-items-center minh-100  " >
                     
-                    <div class="col-md-8 col-lg-6 col-xl-4">
+                    <div class="col-md-8 col-lg-6 col-xl-4 bg-white">
                     <form method="POST">
                           <div class="row">
                                     <div class="col-md-12 border" id="padding-form">
@@ -68,7 +73,7 @@
             
                                                 <div class="row">
                                                     <div id="messages-error"><?php  echo  form_error ( 'email' );  ?></div>
-                                                    <input type="text" name="email" placeholder="Nombre de Usuario o email" class="form-control form-control">
+                                                    <input type="text" name="email" placeholder="Ingrese su correo electronico" class="form-control form-control">
                                                 </div>
                                                 <br>
                                                 <div class="row">
@@ -85,7 +90,7 @@
                                 </form>
                             </div>
                             <div class="row">
-                                    <div class="col-md-12 border" id="div-darkgrey">
+                                    <div class="col-md-12 border" id="div-darkgrey" style="background-color:#E0E0D9">
                                                 <div class="row justify-content-center" >
                                                  <p> <a href="<?php echo base_url()?>index.php/welcome/login">Volver al inicio de sesion</a> </p>
                                                 </div>
