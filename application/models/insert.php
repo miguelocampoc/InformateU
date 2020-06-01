@@ -24,7 +24,7 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
             'DateTimeRecover'=>$DataRegister,
             'TokenActivate'=>password_hash($TokenActivate,PASSWORD_ARGON2I),
             'token' => 'NULL',
-            'tipo'=>'Activated',
+            'tipo'=>'NoActivated',
             'idcarrera'=>10000
             
         ];

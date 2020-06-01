@@ -1,9 +1,9 @@
 
 
-function like(id){
+function like(id,likes){
     $(document).ready(function(){
     var parametros = {"id":id};
-    div = document.getElementById('click'+id);
+    div = document.getElementById('like-up'+id);
     div.style.display = 'none';
     div2 = document.getElementById('showlike'+id);
     div2.style.display = 'block';
@@ -30,7 +30,7 @@ function like(id){
     var parametros = {"id":id};
     div2 = document.getElementById('showlike'+id);
     div2.style.display = 'none';
-    div = document.getElementById('click'+id);
+    div = document.getElementById('like-up'+id);
     div.style.display = 'block';
     
             $.ajax({
@@ -51,4 +51,20 @@ function like(id){
  
  
  }
- 
+ function mostrarcomentarios(id){
+ $(document).ready(function(){
+      $("#comentarios"+id).slideToggle();
+  });
+}
+function editarcomentario(id){
+    $(document).ready(function(){
+        alert(id);
+     });
+   }
+
+
+
+       
+
+
+

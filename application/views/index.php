@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo base_url()?>/css/fonts.css">
     <link rel="stylesheet" href="<?php echo base_url()?>/css/estilos.css">
     <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<?php echo base_url()?>/js/main.js"> </script>
 
     <title>Document</title>
@@ -51,11 +50,22 @@
    display:none;
 
  }
- .showlike{
-    display:none;
- }
-
- 
+.showlike{
+   display:none;
+}
+.like-up{
+   display:none;
+}
+.comentarios{
+   display:none;
+}
+.editarComentario{
+   display:none;
+}
+.sendedit{
+   display:none;
+}
+.revert{display:none;}
 </style>
 <script>
 
@@ -100,14 +110,37 @@ $(document).ready(function(){
   });
  
 });
+$(document).on('click', '#editcomments', function(){
+    var id=$(this).val();
+    $("#descripcionComentario"+id).css("display", "none");
+    $("#editarComentario"+id).css("display", "block");
+    $("#sendedit"+id).css("display", "block");
+    $("#revert"+id).css("display", "block");
 
+  });
+  $(document).on('click', '.revert', function(){
+    var id=$(this).val();
+    $("#descripcionComentario"+id).css("display", "block");
+    $("#editarComentario"+id).css("display", "none");
+    $("#sendedit"+id).css("display", "none");
+    $("#revert"+id).css("display", "none");
+
+  });
 
 
 </script>
 
 
 <body id="body">
-     <?php $this->load->view('navbars/navbaruser');?>
+      <?php $this->load->model('gets')?>
+     <?php $row= $this->gets->getTipo()?>
+      <?php $tipo=$row->tipo ?>
+     <?php if($tipo=="administrador"){?>
+     <?php $this->load->view('navbars/navbaruseradmin'); 
+      }if($tipo=="Activated"){?>
+     <?php $this->load->view('navbars/navbaruser'); ?>
+
+     <?php }?> 
        <br><br><br>
     <div class="container-fluid" >
        <div class="row">
@@ -128,7 +161,7 @@ $(document).ready(function(){
                                        <br>
                                        <div>
                                        <a class="list-group-item list-group-item-action active" href="" >Home</a>
-                                       <a class="list-group-item list-group-item-action" href="<?php  echo base_url()?>index.php/welcome/publicacionesUser" >Mi muro </a>
+                                     <!--  <a class="list-group-item list-group-item-action" href="<?php /* echo base_url() */?>index.php/welcome/publicacionesUser" >Mi muro </a> !-->
                                        </div>
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-3">
@@ -277,32 +310,120 @@ $(document).ready(function(){
                                                                      <div class="pt-2 pb-2">
                                                                      <?php $idpublicacion=$row->idpublicacion?>
                                                                      <?php $rows=$this->gets->numrowscomments($idpublicacion)?>
-                                                                     <a href="">Ver comentarios(<?php echo $rows ?>)</a>
+                                                                     <div  style="cursor:pointer;" onclick="mostrarcomentarios('<?php echo $row->idpublicacion?>')"> Ver comentarios(<?php echo $rows ?>)</div>
+                                                                  
                                                                      </div>
                                                                   </div>
                                                                   <div  sytle="text-align:right" class="col-lg-2 col-md-3 ">
                                                                      <div  class="pt-1 pb-1 pr-1">
                                                                      <div class="col-md-12">
                                                                      <?php $likes= $this->gets->getlikes($idpublicacion) ?>
-                                                                     <form  id="like-up<?php echo $row->idpublicacion?>" style="font-size:12px;"><input type="hidden" name="like-up<?php echo $row->idpublicacion?>" value="<?php echo $row->idpublicacion?>"></input><p id="click<?php echo $row->idpublicacion?>" name="like" onclick="like('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" ><?php echo $likes?>  <img id="like" style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like.svg"></img></p></form>
-                                                                     <form  style="font-size:12px; "> <p id="showlike<?php echo $row->idpublicacion?>" name="hidelike" class="showlike" onclick="hidelike('<?php echo $row->idpublicacion?>')" value="<?php echo $row->idpublicacion?>" > <?php echo $likes?>  <img style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like2.svg"></img></p></form>
+                                                                    <?php $validation=$this->gets->validationLike($idpublicacion)?>
+                                                                     <?php if($validation){ ?>
+                                                                    <div  id="showlike<?php echo $row->idpublicacion?>"  style="font-size:12px; "  onclick="hidelike('<?php echo $row->idpublicacion?>')" ><?php echo $likes?><img style="cursor: pointer;"  width="16px" src="<?php echo base_url()?>/images/like2.svg"></img></div>
+                                                                     <?php }else{?>
+                                                                    <div  id="like-up<?php echo $row->idpublicacion?>" style="font-size:12px;"  onclick="like('<?php echo $row->idpublicacion?>')"  ><?php echo $likes?> <img id="like"  style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like.svg"></img></div>
+                                                                     <?php }?>
+                                                                     <div  id="showlike<?php echo $row->idpublicacion?>"  style="font-size:12px; "  class="showlike" onclick="hidelike('<?php echo $row->idpublicacion?>')" ><?php  echo $likes+1 ?><img style="cursor: pointer;"  width="16px" src="<?php echo base_url()?>/images/like2.svg"></img></div>
+                                                                     <div  id="like-up<?php echo $row->idpublicacion?>" style="font-size:12px;" class="like-up" onclick="like('<?php echo $row->idpublicacion?>','<?php echo $likes ?>')"  ><?php echo $likes-1?> <img id="like"  style="cursor: pointer;" width="16px" src="<?php echo base_url()?>/images/like.svg"></img></div>
 
+                                                                     </div>
+                                                                     </div>
                                                                      
-
-                                                                     </div>
-                                                                     </div>
                                                                   </div>
+                                                                 
+                                                                     <!---Seccion de comentarios --!-->
+                                                                               
+
+
                                                                </div>
+                                                                                                                                    <!---Seccion de comentarios --!-->
+                                                                           <!---Seccion de comentarios --!-->
+                                                                     <div id="comentarios<?php  echo $row->idpublicacion?>" class="comentarios">
+                                                                                 <?php $result=$this->gets->getComments($idpublicacion)?>
+                                                                                    <?php foreach ($result->result() as $row2)
+                                                                                    { 
+                                                                                    ?>
+                                                                                         <div id="showComments<?php echo $row->idpublicacion?>">
+                                                                                       <div class="row bg-white pt-2">
+                                                                                           <?php $validation=$this->gets->ValidationComments($row2->idrespuesta,$idpublicacion);?>
+                                                                                                   <div class="col-sm-1">
+                                                                                                   <?php if($row2=="NULL"){?>
+                                                                                                   <img  width='30px' src="<?php echo base_url()?>/images/fotouser.svg"></img>
+                                                                                                   <?php }else{?>
+                                                                                                   <img  width='30px' src="<?php echo base_url()?>/images/<?php  echo $row2->foto ?>"></img>
+                                                                                                   <?php }?>
+                                                                                                   </div>
+                                                                                                   <div class="col-sm-9 ">
+                                                                                                   <p > <?php  echo $row2->nombre?> <?php echo $row2->apellidos?></p>
+                                                                                                   </div>
+                                                                                                   <div class="col-sm-2 ">
+                                                                                                   <?php if($validation){?>
+                                                                                                      <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
+                                                                                                               <li class="nav-item dropdown">
+                                                                                                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                     </a>
+                                                                                                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                                                                                     <a  ><form id="frm-eliminar" method="POST" action="<?php echo site_url('welcome/EliminarComentario')?>"><input type="hidden" name="idrespuesta" value="<?php echo $row2->idrespuesta?>"></input> <button type="submit" id="eliminar"name="eliminar" class= "col-md-12 ">Eliminar </button><br></form></a>
+                                                                                                                     <a  > <button type="button"  id="editcomments" value="<?php echo $row2->idrespuesta?>"   class= "col-md-12 ">editar </button></a>
+                                                                                                                     </div>
+                                                                                                                  </li>
+                                                                                                      </div>
+                                                                                                   <?php }else{?>
+                                                                                                   <?php }?>
+                                                                                                   
+                                                                                                   
+                                                                                                   </div>
+                                                                                          </div> 
+                                                                                                <div class="row bg-white pt-2">
+                                                                                                   <div class="col-md-12 ">
+                                                                                                   <form method="POST" action="<?php echo site_url('welcome/EditarComentario') ?>">
+                                                                                                   <input type="hidden"  name="idrespuesta" value="<?php echo $row2->idrespuesta?>"> </input>
+                                                                                                   <p id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
+                                                                                                   <textarea id="editarComentario<?php echo $row2->idrespuesta?>" name="descripcion" class="form-control editarComentario" ><?php echo $row2->descripcion ?> </textarea>
+                                                                                                   <div class="pb-2"> </div>
+                                                                                                   <div class="row ml-1">
+                                                                                                   
+                                                                                                    <button id="sendedit<?php echo $row2->idrespuesta?>"  type="submit" class="btn btn-primary btn-sm sendedit">Enviar</button>
+                                                                                                   <button type="button" id="revert<?php echo $row2->idrespuesta?>"  value="<?php echo $row2->idrespuesta ?>" class="btn btn-alert btn-sm revert" > x Cancelar</button>
+                                                                                                   </form>
+                                                                                                   </div>
+
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                          </div>
+
+                                                                                      <?php
+                                                                                  
+                                                                                    }
+                                                                                    ?>
+                                                                                       
+
+                                                                                    <div class="row bg-white pt-3">
+                                                                                    <div class="col-md-12">
+                                                                                    <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>">
+                                                                                     <input type="hidden" name="idpublicacion" value="<?php  echo $row->idpublicacion?>"></input>
+                                                                                    <textarea type="text" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control"></textarea>
+                                                                                    <div class="pt-2"> </div>
+                                                                                    <button type="submit" class="btn btn-primary btn-sm" > Enviar</button> 
+                                                                                    </form>
+                                                                                    </div>
+                                                                                    </div>
+                                                                        </div>
+                                                               <div>
+                                                                                                                                   <!---Seccion de terminada --!-->
+                                                                <!---Seccion de comentarios terminada --!-->
+
                                                                <br>
+                                                              
                                                                <?php }?>
-                                                          
+                                                               
                                                                </span>
                                           
                                          
                                              
                         </div>
                         <div class="col-lg-4 col-md-2 col-xl-2">
-
                          </div>
                       
             </div>

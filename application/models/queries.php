@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
        $this->email=$email;
        $this->clave=$clave;
-       $sql="SELECT*FROM usuarios WHERE email=? OR usuario=?";
-       $result=$this->db->query($sql, array($email,$email));
+       $sql="SELECT*FROM usuarios WHERE email=?";
+       $result=$this->db->query($sql, array($email));
        $row=$result->row();
        $claveDB=$row->clave;
        if(password_verify($clave,$claveDB)){

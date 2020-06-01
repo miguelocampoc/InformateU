@@ -82,7 +82,7 @@ public function getRowUser()
     public function getComments($idpublicacion)
     {
        $this->idpublicacion=$idpublicacion;
-       $sql="SELECT descripcion,foto,idrespuesta FROM comentarios INNER JOIN usuarios ON usuarios.iduser=comentarios.iduser WHERE idpublicacion=?";
+       $sql="SELECT nombre,apellidos,descripcion,foto,idrespuesta FROM comentarios INNER JOIN usuarios ON usuarios.iduser=comentarios.iduser WHERE idpublicacion=?";
        return $this->db->query($sql,array($idpublicacion));
 
     }
@@ -121,6 +121,35 @@ public function getRowUser()
        else{
            return false;
        }
+
+    }
+    public function ValidationComments($idrespuesta,$idpublicacion)
+    {
+        $this->idpublicacion=$idpublicacion;
+        $this->idrespuesta=$idrespuesta;
+        $iduser=$_SESSION['iduser'];
+        $sql="SELECT*FROM comentarios WHERE idpublicacion=? AND iduser=? AND idrespuesta=?";
+        $numrows= $this->db->query($sql,array($idpublicacion,$iduser,$idrespuesta))->num_rows();
+        if($numrows==1){
+          return true;
+        }
+        else{
+        return false;
+        }
+
+    }
+    public function getPublicationUser()
+    {
+    $iduser=$_SESSION['iduser'];
+    $sql="SELECT* FROM publicaciones WHERE iduser=? INNER JOIN usuarios  ON usuarios.iduser=publicaciones.iduser ORDER BY idpublicacion DESC ";
+     return $this->db->query($sql,array($iduser));
+
+    }
+    public function getTipo()
+    {
+    $iduser=$_SESSION['iduser'];
+    $sql=" SELECT*FROM usuarios WHERE iduser=? ";
+     return $this->db->query($sql,array($iduser))->row();
 
     }
 }

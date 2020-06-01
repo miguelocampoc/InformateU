@@ -14,6 +14,7 @@ public function sendEmail($email,$TokenActivate)
          $row=$this->queries->GetFilasUser($email)->row();
          $iduser=$row->iduser;
          $url = 'http://localhost/InformateU/index.php/welcome/AccountActivated?&id='.$iduser.'&t='.$TokenActivate;
+         $imagen= base_url();
                       $this->load->library('phpmailer_lib');
 							$mail=$this->phpmailer_lib->load();
 							$mail->isSMTP();
@@ -26,7 +27,9 @@ public function sendEmail($email,$TokenActivate)
 					            $mail->setFrom('infomigsed@gmail.com', 'MIGSED');
 							    $mail->addAddress($email);
 							    $mail->Subject = 'MIGSED|Gracias por registrate, Verifica tu cuenta';
-							    $mail->isHTML(true);
+                                $mail->isHTML(true);
+                                $mail->AddEmbeddedImage(base_url('images/migsed-logo.jpeg'), "my-attach",base_url('images/migsed-logo.jpeg'));
+
 							    $mailContent = "<!DOCTYPE html>
                             <html>
                             <head>
@@ -34,17 +37,30 @@ public function sendEmail($email,$TokenActivate)
 
                                 <title>Document</title>
                             </head>
-                            <body>
-                            
-                                <p> 
+                            <body >
+                            <style>
+                          
+                           </style>
+                           <div style='text-align:center; background-color:#E9EFEB; padding:5%;'>
+                            <div style='text-align:center'>  <img width='100px' src='https://i.ibb.co/k4P5nXR/migsed-favicon.jpg'></img></div>
+                                <p style='font-size:20px;'> 
                                 Usted se ha registrado exitosamente en MIGSED verifica tu cuenta
                                 </p>
                                  <br>
                                  <a href=".$url.">
-                                       <button>
-                                        Click Me!
+                                       <button  type='button' style='text-decoration:none;
+                                       font-weight:600;
+                                       font-size:20px;
+                                       color:#ffffff;
+                                       padding-top:20px;
+                                       padding-bottom:20px;
+                                       padding-left:40px;
+                                       padding-right:40px;
+                                       background-color:#005BBB;' class='btn btn-primary'>
+                                        Click aqui
                                         </button> 
-                                </a>    
+                                </a> 
+                            </div>   
                             </body>
                             </html>";
 							$mail->Body = $mailContent;
@@ -82,11 +98,14 @@ public function sendEmail($email,$TokenActivate)
                                <title>Document</title>
                            </head>
                            <body>
-                           
-                               <p> 
+                           <div style='text-align:center; background-color:#E9EFEB; padding:5%;'>
+                           <div style='text-align:center'>  <img width='100px' src='https://i.ibb.co/k4P5nXR/migsed-favicon.jpg'></img></div>
+
+                               <p style='font-size:20px;'> 
                                Usted ha reestablecido correctamente su clave
                                </p>
-                               
+                           </div>   
+
                            </body>
                            </html>";
                            $mail->Body = $mailContent;
@@ -129,16 +148,27 @@ public function sendEmail($email,$TokenActivate)
                                <title>Document</title>
                            </head>
                            <body>
-                           
-                               <p> 
-                               Usted ha solicitada un cambio de contraseña en MIGSED si  es usted por favor dar click en el link para reestablecer en su cuenta
+                           <div style='text-align:center; background-color:#E9EFEB; padding:5%;'>
+                           <div style='text-align:center'>  <img width='100px' src='https://i.ibb.co/k4P5nXR/migsed-favicon.jpg'></img></div>
+
+                               <p style='text-align:center; font-size:20px;' > 
+                               Usted ha solicitada un cambio de contraseña en MIGSED,Por favor dar click en el boton para reestablecer en su clave
                                </p>
                                 <br>
                                 <a href=".$url.">
-                                      <button>
-                                       Click Me!
-                                       </button> 
-                               </a>    
+                                <button  type='button' style='text-decoration:none;
+                                font-weight:600;
+                                font-size:20px;
+                                color:#ffffff;
+                                padding-top:20px;
+                                padding-bottom:20px;
+                                padding-left:40px;
+                                padding-right:40px;
+                                background-color:#005BBB;' class='btn btn-primary'>
+                                 Click aqui
+                                 </button> 
+                               </a> 
+                            </div>
                            </body>
                            </html>";
                         
@@ -178,17 +208,33 @@ public function sendEmail($email,$TokenActivate)
                                <title>Document</title>
                            </head>
                            <body>
-                           
-                               <p> 
+                           <style>
+                            body{
+                                background-color:#E9EFEB;
+                            }
+                           </style>
+                           <div style='text-align:center; background-color:#E9EFEB; padding:5%;'>
+                           <div style='text-align:center'>  <img width='100px' src='https://i.ibb.co/k4P5nXR/migsed-favicon.jpg'></img></div>
+
+                               <p style='text-align:center' style='font-size:20px;'> 
                              Usted ha solicitado un cambio de correo electronico , pulsa click para reestablecer email.
                                </p>
                                 <br>
                                 <form action=".$url." method='POST'>
                                 <input type='hidden' name='email' value=".$email.">
-                                      <button type='submit'>
-                                       Click Me!
-                                       </button> 
-                               </form>   
+                                <button  type='submit' style='text-decoration:none;
+                                font-weight:600;
+                                font-size:20px;
+                                color:#ffffff;
+                                padding-top:20px;
+                                padding-bottom:20px;
+                                padding-left:40px;
+                                padding-right:40px;
+                                background-color:#005BBB;' class='btn btn-primary'>
+                                 Click aqui
+                                 </button> 
+                               </form> 
+                            </div>
                            </body>
                            </html>";
                            $mail->Body = $mailContent;

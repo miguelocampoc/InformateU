@@ -38,7 +38,7 @@ class Welcome extends CI_Controller {
 									   redirect('Welcome');					
 									}
 									else{
-										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.Recuerda que si la cuenta no se activa en 1 hora apartir del tiempo de registro tu cuenta sera eliminada.';
+										$_SESSION['message9'] = 'PorFavor Active su cuenta, se ha enviado a su email un enlace de verificacion.';
 										redirect('Welcome/login');
 									}
 							}
@@ -323,7 +323,6 @@ class Welcome extends CI_Controller {
 				$data=array(
 					'usuarios'=>$this->gets->getRowUser(),
 					'carreraUser'=>$this->gets->getByidCarrera(),
-					'publicaciones'=>$this->gets->getPublicaciones()
 				);
 				$this->load->view('mispublicaciones',$data);
 			}
@@ -429,5 +428,19 @@ class Welcome extends CI_Controller {
 
 		 }
 		
+	}
+	public function getComments () {
+	$idpublicacion=$this->input->post('id');
+	$this->load->model('gets');
+	$result=$this->gets->getComments($idpublicacion);
+	$json = array();
+			foreach ($result->result() as $row)
+		{ 
+			$json[] = array(
+			'descripcion' => $row->descripcion,
+		  );
+		}
+	$jsonstring = json_encode($json);
+	echo $jsonstring;
 	}
 }
