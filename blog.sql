@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2020 a las 16:21:09
+-- Tiempo de generación: 05-06-2020 a las 00:03:29
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.26
 
@@ -64,12 +64,10 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`idrespuesta`, `descripcion`, `idpublicacion`, `iduser`) VALUES
-(73, '', 387, 196),
-(76, 'Prueba', 387, 197),
-(77, 'Prueba', 384, 197),
-(78, 'Prueba', 383, 197),
-(79, 'Prueba', 382, 197),
-(86, 'Prueba', 389, 196);
+(86, 'Prueba', 389, 196),
+(90, 'prueba\r\n', 389, 196),
+(91, 'prueba', 391, 196),
+(92, 'prueba', 391, 196);
 
 -- --------------------------------------------------------
 
@@ -88,14 +86,14 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`idlike`, `idpublicacion`, `iduser`) VALUES
-(213, 387, 197),
 (214, 384, 197),
 (216, 383, 197),
 (217, 382, 197),
-(228, 387, 196),
-(229, 384, 196),
-(230, 383, 196),
-(231, 382, 196);
+(231, 382, 196),
+(234, 384, 196),
+(236, 383, 196),
+(237, 391, 196),
+(239, 389, 196);
 
 -- --------------------------------------------------------
 
@@ -119,8 +117,8 @@ INSERT INTO `publicaciones` (`idpublicacion`, `descripcion`, `iduser`, `archivo`
 (382, 'Prueba documento', 196, 'Taller1_MiguelOcampo_07052020.pdf', 2),
 (383, ' Prueba documento ', 196, 'NAT-ESTATICA-Y-DINAMICA-TRABAJOI.pdf', 2),
 (384, 'Prueba imagen', 196, 'carro.jpg', 2),
-(387, '  Prueba  ', 197, 'NULL', 2),
-(389, ' Prueba', 196, 'carro.jpg', 0);
+(389, ' Prueba', 196, 'carro.jpg', 1),
+(391, '   Prueba', 196, 'Modelo-de-Transbordo.xlsx', 1);
 
 -- --------------------------------------------------------
 
@@ -153,9 +151,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`iduser`, `nombre`, `usuario`, `email`, `clave`, `token`, `foto`, `DateTimeRecover`, `data_register`, `apellidos`, `TokenActivate`, `tipo`, `genero`, `cumpleaños`, `biografia`, `idcarrera`, `tokenUpdateEmail`) VALUES
-(196, 'miguel', 'miguel09', 'miguelocampoc@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$MmouNS9ZRE9iOXZOMko2Rw$2Nmk91c1nh9d1eYy+kCelpt6YZZnnJgnRcWDUZ04KcE', '$2y$10$LRfveIU4uIYE4.3mLSadF.Z.flWtl9mhxZySXgxMZG7xRZsOUpJuu', 'fotouser196.jpg', '2020-05-21 13:21:00', '2020-05-21 13:21:00', 'Ocampo', '$argon2i$v=19$m=65536,t=4,p=1$VDNxZWdjdUZuOTBSaU5PRA$N8sO1dVfIvB5AepYFZr2lDnSyqR+OlIag+3TFJFG9sM', 'Activated', '', '0000-00-00', '', 10000, 'NULL'),
-(197, 'mohamed', 'ashama09', 'ashama@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$R2FNTDR1L3p3czNaSkEwTw$ob87BP3O7KRxGDZeZR/Y955AFbrW5ZEkVDZMOQGij0A', 'NULL', 'fotouser197.jpg', '2020-05-26 23:32:00', '2020-05-26 23:32:00', 'asahma', '$argon2i$v=19$m=65536,t=4,p=1$dWRaUy5zQlU4Z0lUempCQQ$kKvlPM6DO2IJXd2TY2Bays/HcBe7AOb+Q5tnGVrZnlc', 'Activated', '', '0000-00-00', '', 10000, ''),
-(222, 'julio', 'julio9', 'magelosac@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$T2NXVUsvQy5Oc0EzbC51TQ$HhDJsp55RbZXxMdUtSsP99yq5N3aSPbJj8XNT1VthF4', 'NULL', 'NULL', '2020-05-31 02:44:00', '2020-05-31 02:44:00', 'julio', 'NULL', 'Activated', '', '0000-00-00', '', 10000, '');
+(196, 'miguel', 'miguel09', 'miguelocampoc@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$OGhLMksubGRSbHBsaS5TeQ$F+fsi5hvrF8g3rnusxEa18bXhqDWoeOhEWNKTKvqcVU', 'NULL', 'fotouser196.jpg', '2020-05-21 13:21:00', '2020-05-21 13:21:00', 'Ocampo', '$argon2i$v=19$m=65536,t=4,p=1$VDNxZWdjdUZuOTBSaU5PRA$N8sO1dVfIvB5AepYFZr2lDnSyqR+OlIag+3TFJFG9sM', 'administrador', '', '0000-00-00', '', 10000, 'NULL'),
+(223, 'Julio', 'julio09', 'magelosac@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$aFdnRU1mVHJpci5IT2EuVQ$ylx4KovQgNwazIqXBpZDJxjANiMY8de6Y6JhPwm4xNU', 'NULL', 'NULL', '2020-06-03 21:30:00', '2020-06-03 21:30:00', 'diaz', 'NULL', 'administrador', '', '0000-00-00', '', 10000, '');
 
 --
 -- Índices para tablas volcadas
@@ -211,25 +208,25 @@ ALTER TABLE `carreras`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `idrespuesta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT de la tabla `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `idlike` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `idlike` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=390;
+  MODIFY `idpublicacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `iduser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- Restricciones para tablas volcadas
