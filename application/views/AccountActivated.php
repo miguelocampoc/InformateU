@@ -20,6 +20,7 @@ body{
                         <div style="text-align:center"><img width="120px" src="<?php echo base_url()?>/images/migsed-favicon.jpeg"></img></div>
                         <div class="pb-3"> </div>
                             <p sytle="font-size:25px; text-align:center;" class="text-center">Su cuenta ha sido activada exitosamente</p>
+                            <a  href="http://localhost/informateU/index.php/Welcome/login" sytle="font-size:25px; text-align:center;" class="text-center">Haz click aqui para iniciar sesion</a>
 
                         </div>
                         </div>

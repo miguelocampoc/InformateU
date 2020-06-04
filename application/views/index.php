@@ -18,7 +18,9 @@
     
 </head>
 <style>
-
+p{
+   font-size:15px;
+}
  button{
  font-family:Arial;
   outline:none; 
@@ -288,11 +290,11 @@ $(document).on('click', '#editcomments', function(){
                                                                                  <p class="descripcion" id="descripcion<?php echo $row->idpublicacion?>">   <?php  echo $row->descripcion?> </p>
                                                                                  <textarea class="textarea form-control"  name="descripcion" id="textarea<?php echo $row->idpublicacion ?>"> <?php  echo $row->descripcion?> </textarea><div class="pb-2"></div>
                                                                                 <div class="row"> 
-                                                                                 <div class="col-md-10 col-lg-10"> 
-                                                                                  <button type="button" id="cancelar<?php echo $row->idpublicacion?>" value="<?php  echo $row->idpublicacion?>" class="cancelar btn btn-danger btn-sm"> x cancelar</button>
+                                                                                 <div class="col-md-1 col-lg-1">
+                                                                                 <button type="submit" id="publicar<?php echo $row->idpublicacion?>" class="publicar btn btn-primary btn-sm"> Enviar</button>
                                                                                   </div> 
-                                                                                  <div class="col-md-2 col-lg-1"> 
-                                                                                  <button type="submit" id="publicar<?php echo $row->idpublicacion?>" class="publicar btn btn-primary btn-sm"> Editar</button>
+                                                                                  <div class="col-md-2 col-lg-2"> 
+                                                                                  <button type="button" id="cancelar<?php echo $row->idpublicacion?>" value="<?php  echo $row->idpublicacion?>" class="cancelar btn btn btn-sm"> x cancelar</button>
                                                                                   </form>
                                                                                   </div> 
                                                                                  </div> 
@@ -317,7 +319,7 @@ $(document).on('click', '#editcomments', function(){
                                                          
                                                             <!-- contenido de la publicacion terminada-->
                                                             <!-- seccion de herramientas de publicacion !-->
-                                                            <div class="row bg-white border" >
+                                                            <div class="row border" style="background-color:#EAE5E5" >
                                                                   <div class="col-lg-10 col-md-9">
                                                                      <div class="pt-2 pb-2">
                                                                      <?php $idpublicacion=$row->idpublicacion?>
@@ -359,15 +361,19 @@ $(document).on('click', '#editcomments', function(){
                                                                                          <div id="showComments<?php echo $row->idpublicacion?>">
                                                                                        <div class="row bg-white pt-2">
                                                                                            <?php $validation=$this->gets->ValidationComments($row2->idrespuesta,$idpublicacion);?>
-                                                                                                   <div class="col-sm-1">
+                                                                                                   <div class="col-sm-1" >
                                                                                                    <?php if($row2=="NULL"){?>
+                                                                                                   <div>
                                                                                                    <img  width='30px' src="<?php echo base_url()?>/images/fotouser.svg"></img>
+                                                                                                   </div style="margin-left:20px;">
                                                                                                    <?php }else{?>
-                                                                                                   <img  width='30px' src="<?php echo base_url()?>/images/<?php  echo $row2->foto ?>"></img>
+                                                                                                   <div style="margin-left:20px;">
+                                                                                                   <img   width='30px' src="<?php echo base_url()?>/images/<?php  echo $row2->foto ?>"></img>
+                                                                                                   </div>
                                                                                                    <?php }?>
                                                                                                    </div>
-                                                                                                   <div class="col-sm-9 ">
-                                                                                                   <p > <?php  echo $row2->nombre?> <?php echo $row2->apellidos?></p>
+                                                                                                   <div class="col-sm-9  " >
+                                                                                                   <p  style="tex-indent:20px; font-size:14px;"> <?php  echo $row2->nombre?> <?php echo $row2->apellidos?></p>
                                                                                                    </div>
                                                                                                    <div class="col-sm-2 ">
                                                                                                    <?php if($validation){?>
@@ -398,14 +404,14 @@ $(document).on('click', '#editcomments', function(){
                                                                                                    
                                                                                                    </div>
                                                                                           </div> 
-                                                                                                <div class="row bg-white pt-2">
-                                                                                                   <div class="col-md-12 ">
+                                                                                                <div class="row bg-white pt-2 mb-0 border-bottom">
+                                                                                                   <div class="col-md-12  " style="text-indent:20px;">
                                                                                                    <form method="POST" action="<?php echo site_url('welcome/EditarComentario') ?>">
                                                                                                    <input type="hidden"  name="idrespuesta" value="<?php echo $row2->idrespuesta?>"> </input>
-                                                                                                   <p id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
+                                                                                                   <p  style="font-size:14px" id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
+
                                                                                                    <textarea id="editarComentario<?php echo $row2->idrespuesta?>" name="descripcion" class="form-control editarComentario" ><?php echo $row2->descripcion ?> </textarea>
-                                                                                                   <div class="pb-2"> </div>
-                                                                                                   <div class="row ml-1">
+                                                                                                   <div class="row ml-1 mb-2 mt-2" >
                                                                                                    
                                                                                                     <button id="sendedit<?php echo $row2->idrespuesta?>"  type="submit" class="btn btn-primary btn-sm sendedit">Enviar</button>
                                                                                                    <button type="button" id="revert<?php echo $row2->idrespuesta?>"  value="<?php echo $row2->idrespuesta ?>" class="btn btn-alert btn-sm revert" > x Cancelar</button>
@@ -415,20 +421,22 @@ $(document).on('click', '#editcomments', function(){
                                                                                                    </div>
                                                                                                 </div>
                                                                                           </div>
-
                                                                                       <?php
                                                                                   
                                                                                     }
                                                                                     ?>
                                                                                        
 
-                                                                                    <div class="row bg-white pt-0">
+                                                                                    <div class="row  pt-0 border " style="background-color:#EDE8E8">
                                                                                     <div class="col-md-12">
                                                                                     <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>">
                                                                                      <input type="hidden" name="idpublicacion" value="<?php  echo $row->idpublicacion?>"></input>
+                                                                                     <div class="pb-1"> </div>
                                                                                     <textarea type="text" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control"></textarea>
-                                                                                    <div class="pt-2"> </div>
+                                                                                    <div class="pb-2 "> </div>
                                                                                     <button type="submit" class="btn btn-primary btn-sm" > Enviar</button> 
+                                                                                    <div class="pb-2 "> </div>
+
                                                                                     </form>
                                                                                     </div>
                                                                                     </div>
