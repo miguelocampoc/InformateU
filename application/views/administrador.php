@@ -35,7 +35,6 @@
       <th scope="col">Correo</th>
       <th scope="col">Privilegios</th>
       <th scope="col">Opciones</th>
-      <th scope="col">Bloquear</th>
 
     </tr>
   </thead>

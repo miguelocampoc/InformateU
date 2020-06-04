@@ -200,28 +200,27 @@ function editarcomentario(id){
                   tasks.forEach(task => {
                     template += `
                     <tr>
-                    <td>${task.iduser}</td>
-                    <td> ${task.nombre}</td>
-                    <td> ${task.apellidos}</td>
-                    <td> ${task.email}</td
-
-                    <td><div class="form-group">
-                  <select id="privilegio${task.iduser}" onchange="ShowSelected('${task.iduser}')" class="form-control" id="exampleFormControlSelect1">
-                    <option style="color:red">  ${task.tipo}</option>
-                    <option value="administrador" name="btn-modal"> Administrador</option>
-                    <option value="Normal" >Normal</option>
+                  <td>${task.iduser}</td>
+                  <td> ${task.nombre}</td>
+                  <td> ${task.apellidos}</td>
+                  <td> ${task.email}</td>
+                  <td><div class="form-group">
+                <select id="privilegio${task.iduser}" onchange="ShowSelected('${task.iduser}')" class="form-control" id="exampleFormControlSelect1">
+                  <option style="color:red">  ${task.tipo}</option>
+                  <option value="administrador" name="btn-modal"> Administrador</option>
+                  <option value="Normal" >Normal</option>
+                
+                </select>
+              </div></td>
+                  <td><div class="form-group">
+                <select id="opciones${task.iduser}" onchange="ShowSelected2('${task.iduser}')" class="form-control" id="exampleFormControlSelect1">
+                  <option >---</option>
+                  <option value="eliminar" id="btn-modal3">Eliminar</option>
                   
-                  </select>
-                </div></td>
-                    <td><div class="form-group">
-                  <select id="opciones${task.iduser}" onchange="ShowSelected2('${task.iduser}')" class="form-control" id="exampleFormControlSelect1">
-                    <option >---</option>
-                    <option value="eliminar" id="btn-modal3">Eliminar</option>
-                    
-                  </select>
-                </div></td>
-
-                  </tr>
+                </select>
+              </div></td>
+            
+                </tr>
                           ` 
                   });
                   $('.tasks').html(template);
