@@ -9,38 +9,80 @@
     <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<?php echo base_url()?>/js/main.js"> </script>
+    <script src="<?php echo base_url()?>/js/interaciones.js"> </script>
 
     <title>Document</title>
 </head>
+<style>
+
+</style>
+<br><br><br><br>
 <body>
 
      <div class="container-fluid">
-     <div class="row row  justify-content-center align-items-center minh-100">
+     <div class="row row  justify-content-center">
      <div class="col-md-8">
      <p>Administrar Usuarios</p>
+     <input type="search"  id="search" class="form-control mr-sm-2"  placeholder="Search" aria-label="Search" > </input>
+     <div class="pb-3"> </div>
+
      <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Id</th>
       <th scope="col">Nombres</th>
       <th scope="col">Apellidos</th>
       <th scope="col">Correo</th>
       <th scope="col">Privilegios</th>
+      <th scope="col">Opciones</th>
+      <th scope="col">Bloquear</th>
 
     </tr>
   </thead>
+
+  <tbody id="tasks" class="tasks">
+  
+  
+  </tbody>
+  <tbody id="searchUser" class="searchUser">
+  
+  
+  </tbody>
+
+<!---
   <tbody>
     <tr>
       <th scope="row">1</th>
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
+      <td><div class="form-group">
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Administrador</option>
+      <option>Normal</option>
+    
+    </select>
+  </div></td>
+      <td><div class="form-group">
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Eliminar</option>
+      <option>Bloquear</option>
+      
+    </select>
+  </div></td>
+
     </tr>
   
   </tbody>
+  !-->
 </table>
     </div>
     </div>
     </div>
+  
+
+<!-- Modal -->
+
+
 </body>
 </html>

@@ -137,7 +137,7 @@ $(document).on('click', '#editcomments', function(){
       <?php $tipo=$row->tipo ?>
      <?php if($tipo=="administrador"){?>
      <?php $this->load->view('navbars/navbaruseradmin'); 
-      }if($tipo=="Activated"){?>
+      }if($tipo=="Normal"){?>
      <?php $this->load->view('navbars/navbaruser'); ?>
 
      <?php }?> 
@@ -262,9 +262,21 @@ $(document).on('click', '#editcomments', function(){
                                                                                        </div>
                                                                                     </li>
                                                                                  </div>
-                                                                                 <?php }?>
-                                                                           </div>
-                                                                  </div>
+                                                                                 <?php }else{?>
+                                                                                
+                                                                                <?php if($tipo="administrador"){?>
+                                                                                 <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
+                                                                                 <li class="nav-item dropdown">
+                                                                                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                       </a>
+                                                                                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                                                       <a  ><form id="frm-eliminar" method="POST" action="<?php echo site_url('welcome/eliminarpublicacion')?>"><input type="hidden" name="idpublicacion" value="<?php echo $row->idpublicacion?>"></input> <button type="submit" id="eliminar"name="eliminar" class= "col-md-12 ">Eliminar </button><br></form></a>
+                                                                                       </div>
+                                                                                    </li>
+                                                                                 </div>
+                                                                                <?php }?>
+                                                                                <?php }?>
+                                                                           </div>                                                                  </div>
                                                                <!-- encabezado finalizado !-->
                                                                <!-- contenido de la publicacion !-->
 
@@ -370,6 +382,17 @@ $(document).on('click', '#editcomments', function(){
                                                                                                                   </li>
                                                                                                       </div>
                                                                                                    <?php }else{?>
+                                                                                                    <?php if($tipo=="administrador"){ ?>
+                                                                                                      <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
+                                                                                                               <li class="nav-item dropdown">
+                                                                                                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                     </a>
+                                                                                                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                                                                                     <a  ><form id="frm-eliminar" method="POST" action="<?php echo site_url('welcome/EliminarComentario')?>"><input type="hidden" name="idrespuesta" value="<?php echo $row2->idrespuesta?>"></input> <button type="submit" id="eliminar"name="eliminar" class= "col-md-12 ">Eliminar </button><br></form></a>
+                                                                                                                     </div>
+                                                                                                                  </li>
+                                                                                                      </div>
+                                                                                                    <?php }?>
                                                                                                    <?php }?>
                                                                                                    
                                                                                                    
@@ -399,7 +422,7 @@ $(document).on('click', '#editcomments', function(){
                                                                                     ?>
                                                                                        
 
-                                                                                    <div class="row bg-white pt-3">
+                                                                                    <div class="row bg-white pt-0">
                                                                                     <div class="col-md-12">
                                                                                     <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>">
                                                                                      <input type="hidden" name="idpublicacion" value="<?php  echo $row->idpublicacion?>"></input>

@@ -287,7 +287,7 @@ class Welcome extends CI_Controller {
 				    $this->load->model('insert');
 					$descripcion=$this->input->post('descripcion');
 					$file=$_FILES['foto']['name'];
-					$file=str_replace(' ', '-', $file);
+					$file=str_replace(' ', '-', $file.'');
 					$tipo= pathinfo($file, PATHINFO_EXTENSION);
 					if ($tipo=="PNG" or $tipo=="JPEG" or $tipo=="JPG" or $tipo=="PDF" or $tipo=="DOCX" or $tipo=="xlsx" or $tipo=="png" or $tipo=="jpeg" or $tipo=="jpg" or $tipo=="pdf" or $tipo=="docx" or $tipo=="xlsx"){
 					    $this->insert->insertpublicacion($descripcion,$file);
@@ -443,4 +443,65 @@ class Welcome extends CI_Controller {
 	$jsonstring = json_encode($json);
 	echo $jsonstring;
 	}
+	public function mostrarUsuarios () {
+	$sql="SELECT iduser,nombre,apellidos,email,tipo FROM usuarios";
+	$result= $this->db->query($sql);
+				$json = array();
+					foreach ($result->result() as $row)
+				{ 
+					$json[] = array(
+					'iduser' => $row->iduser,
+					'nombre' => $row->nombre,
+					'apellidos'=>$row->apellidos,
+					'email'=>$row->email,
+					'tipo'=>$row->tipo
+
+				);
+				}
+				$jsonstring = json_encode($json);
+				echo $jsonstring;
+   }
+				public function privilegio () {
+					$iduser=$this->input->post('id');
+					$tipo=$this->input->post('privilegio');
+
+					$sql="UPDATE usuarios SET tipo=? WHERE iduser=?";
+
+					$result=$this->db->query($sql, array($tipo,$iduser));
+                    if($result){
+                      echo "consulta realizada exitosamente";
+					}
+					else{
+						echo "consulta ha fallado";
+
+					}
+				}
+				public function deleteUser () {
+					$iduser=$this->input->post('id');
+					$sql="DELETE FROM usuarios WHERE iduser=? ";
+					$this->db->query($sql,array($iduser));
+
+				}
+				public function searchUser () {
+					$search=$this->input->post('search');
+                    if(!empty($search)) {
+						$sql = "SELECT * FROM usuarios WHERE nombre LIKE '$search%'";
+						$result=$this->db->query($sql);
+						$json = array();
+									foreach ($result->result() as $row)
+									{ 
+										$json[] = array(
+										'iduser' => $row->iduser,
+										'nombre' => $row->nombre,
+										'apellidos'=>$row->apellidos,
+										'email'=>$row->email,
+										'tipo'=>$row->tipo
+					
+									);
+									}
+
+								$jsonstring = json_encode($json);
+								echo $jsonstring;
+					  }
+				}
 }

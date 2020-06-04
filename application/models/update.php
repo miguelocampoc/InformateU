@@ -36,7 +36,7 @@ public function updatePassword()
     {  
        $this->id=$id;
        $sql="UPDATE usuarios SET tipo=?,TokenActivate=? WHERE iduser=?";
-       $this->db->query($sql, array("Activated","NULL",$id));
+       $this->db->query($sql, array("Normal","NULL",$id));
 
     }
     public function UpdateUser()

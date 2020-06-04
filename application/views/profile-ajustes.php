@@ -23,8 +23,15 @@
  }
 
 </style>
-<?php $this->load->view('navbars/navbaruser')?>
-    <br><br><br><br>
+<?php $this->load->model('gets')?>
+     <?php $row= $this->gets->getTipo()?>
+      <?php $tipo=$row->tipo ?>
+     <?php if($tipo=="administrador"){?>
+     <?php $this->load->view('navbars/navbaruseradmin'); 
+      }if($tipo=="Normal"){?>
+     <?php $this->load->view('navbars/navbaruser'); ?>
+
+     <?php }?>     <br><br><br><br>
        <div class="container ">
                   <div class="row justify-content-center ">
                             <div class="col-sm-12 col-md-10  border-right  border-left">
