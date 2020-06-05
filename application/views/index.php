@@ -18,6 +18,15 @@
     
 </head>
 <style>
+input[type=”file”]#nuestroinput {
+ width: 0.1px;
+ height: 0.1px;
+ opacity: 0;
+ overflow: hidden;
+ position: absolute;
+ z-index: -1;
+ }
+Y a 
 p{
    font-size:15px;
 }
@@ -128,7 +137,20 @@ $(document).on('click', '#editcomments', function(){
     $("#revert"+id).css("display", "none");
 
   });
-
+  $(document).on('click', '#revert', function(){
+   $(".descripcionComentario").css("display", "block");
+    $(".editarComentario").css("display", "none");
+    $(".sendedit").css("display", "none");
+    $(".revert").css("display", "none");
+    $(".descripcion").css("display", "block");
+    $(".textarea").css("display", "none");
+    $(".publicar").css("display", "none");
+    $(".cancelar").css("display", "none");
+  });
+  function cambiar(){
+    var pdrs = document.getElementById('file-upload').files[0].name;
+    document.getElementById('info').innerHTML = pdrs;
+}
 
 </script>
 
@@ -166,7 +188,7 @@ $(document).on('click', '#editcomments', function(){
                                      <!--  <a class="list-group-item list-group-item-action" href="<?php /* echo base_url() */?>index.php/welcome/publicacionesUser" >Mi muro </a> !-->
                                        </div>
                         </div>
-                        <div class="col-md-1 col-lg-1 col-xl-3">
+                        <div  id="revert" class="col-md-1 col-lg-1 col-xl-3">
                                                            
                         </div>
                     
@@ -218,7 +240,7 @@ $(document).on('click', '#editcomments', function(){
                                           <div class="row bg-white pt-1">
                                                          
                                                          <div class="col-lg-5 col-lg-5" >
-                                                         <input class="form-control-file" name="foto" type="file" >
+                                                         <input class=" form-control-sm form-control-file  " name="foto" type="file" >
 
                                                          </div>
                                                          <div class="col-lg-7 col-lg-7">
@@ -241,7 +263,7 @@ $(document).on('click', '#editcomments', function(){
 
                                                                                                       <?php }?> 
                                                                            </div>
-                                                                           <div  class=" col-lg-10 col-md-9">
+                                                                           <div  style="font-size:14px;" class=" col-lg-10 col-md-9">
                                                                       
                                                                            <?php  echo $row->nombre;?> <?php echo $row->apellidos?>
                                                                            </div>
@@ -284,11 +306,11 @@ $(document).on('click', '#editcomments', function(){
 
                                                                <div class="row bg-white pt-2" >
                                                                         <div class="col-md-12 pb-1">
-                                                                              <div style="text-indent:18px;">
+                                                                              <div>
                                                                               <form action="<?php echo site_url('welcome/editarpublicacion')?>" method="POST">
                                                                                   <input type="hidden" name="idpublicacion" value="<?php echo $row->idpublicacion?>"> </input>
-                                                                                 <p class="descripcion" id="descripcion<?php echo $row->idpublicacion?>">   <?php  echo $row->descripcion?> </p>
-                                                                                 <textarea class="textarea form-control"  name="descripcion" id="textarea<?php echo $row->idpublicacion ?>"> <?php  echo $row->descripcion?> </textarea><div class="pb-2"></div>
+                                                                                 <p  sytle="font-size:14px;" class="descripcion" id="descripcion<?php echo $row->idpublicacion?>">   <?php  echo $row->descripcion?> </p>
+                                                                                 <textarea  class="textarea form-control form-control-sm"  name="descripcion" id="textarea<?php echo $row->idpublicacion ?>"> <?php  echo $row->descripcion?> </textarea><div class="pb-2"></div>
                                                                                 <div class="row"> 
                                                                                  <div class="col-md-1 col-lg-1">
                                                                                  <button type="submit" id="publicar<?php echo $row->idpublicacion?>" class="publicar btn btn-primary btn-sm"> Enviar</button>
@@ -310,8 +332,8 @@ $(document).on('click', '#editcomments', function(){
                                                                         <img   src="<?php echo base_url()?>/images/<?php echo $row->archivo?>"  class="img-fluid" alt="Responsive image"> </img>
                                                                </div>
                                                                         <?php }else{?>
-                                                                           <div class="row bg-white pt-2 pl-3 border pb-2 pr-3"  >
-                                                                          <a class="left-align" href="<?php echo base_url()?>/images/<?php echo $row->archivo ?>"><?php echo $row->archivo ?> </a>
+                                                                           <div class="row bg-white pt-2 pl-3 border pr-3"  >
+                                                                          <a class="left-align"  href="<?php echo base_url()?>/images/<?php echo $row->archivo ?>"><p style="font-size:14px"><?php echo $row->archivo ?></p> </a>
                                                                           </div>
                                                                         <?php }?>
                                                                        
@@ -324,7 +346,7 @@ $(document).on('click', '#editcomments', function(){
                                                                      <div class="pt-2 pb-2">
                                                                      <?php $idpublicacion=$row->idpublicacion?>
                                                                      <?php $rows=$this->gets->numrowscomments($idpublicacion)?>
-                                                                     <div  style="cursor:pointer;" onclick="mostrarcomentarios('<?php echo $row->idpublicacion?>')"> Ver comentarios(<?php echo $rows ?>)</div>
+                                                                     <div  style="cursor:pointer; font-size:14px;" onclick="mostrarcomentarios('<?php echo $row->idpublicacion?>')"> Ver comentarios(<?php echo $rows ?>)</div>
                                                                   
                                                                      </div>
                                                                   </div>
@@ -408,13 +430,13 @@ $(document).on('click', '#editcomments', function(){
                                                                                                    <div class="col-md-12  " style="text-indent:20px;">
                                                                                                    <form method="POST" action="<?php echo site_url('welcome/EditarComentario') ?>">
                                                                                                    <input type="hidden"  name="idrespuesta" value="<?php echo $row2->idrespuesta?>"> </input>
-                                                                                                   <p  style="font-size:14px" id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
+                                                                                                   <p  style="font-size:14px" class="descripcionComentario" id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
 
-                                                                                                   <textarea id="editarComentario<?php echo $row2->idrespuesta?>" name="descripcion" class="form-control editarComentario" ><?php echo $row2->descripcion ?> </textarea>
-                                                                                                   <div class="row ml-1 mb-2 mt-2" >
+                                                                                                <div style="margin-left:14px"><textarea id="editarComentario<?php echo $row2->idrespuesta?>" name="descripcion" class="form-control form-control-sm editarComentario" ><?php echo $row2->descripcion ?> </textarea></div>
+                                                                                                   <div class="row ml-3 mb-2 mt-2 ">
                                                                                                    
-                                                                                                    <button id="sendedit<?php echo $row2->idrespuesta?>"  type="submit" class="btn btn-primary btn-sm sendedit">Enviar</button>
-                                                                                                   <button type="button" id="revert<?php echo $row2->idrespuesta?>"  value="<?php echo $row2->idrespuesta ?>" class="btn btn-alert btn-sm revert" > x Cancelar</button>
+                                                                                                    <button   id="sendedit<?php echo $row2->idrespuesta?>"  type="submit" class="btn btn-primary btn-sm sendedit">Enviar</button>
+                                                                                                   <button  type="button" id="revert<?php echo $row2->idrespuesta?>"  value="<?php echo $row2->idrespuesta ?>" class="btn btn-alert btn-sm revert" > x Cancelar</button>
                                                                                                    </form>
                                                                                                    </div>
 
@@ -432,9 +454,14 @@ $(document).on('click', '#editcomments', function(){
                                                                                     <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>">
                                                                                      <input type="hidden" name="idpublicacion" value="<?php  echo $row->idpublicacion?>"></input>
                                                                                      <div class="pb-1"> </div>
-                                                                                    <textarea type="text" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control"></textarea>
+                                                                                    <textarea type="text"  rows="2" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control form-control-sm"></textarea>
                                                                                     <div class="pb-2 "> </div>
                                                                                     <button type="submit" class="btn btn-primary btn-sm" > Enviar</button> 
+                                                                                    <label for="file-upload" class="subir">
+                                                                                          <i class="fas fa-cloud-upload-alt"></i> 
+                                                                                       </label>
+                                                                                       <input id="file-upload" onchange='cambiar()' type="file" style='display: none;'/>
+                                                                                       <div id="info"></div>
                                                                                     <div class="pb-2 "> </div>
 
                                                                                     </form>
