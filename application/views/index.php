@@ -147,9 +147,19 @@ $(document).on('click', '#editcomments', function(){
     $(".publicar").css("display", "none");
     $(".cancelar").css("display", "none");
   });
-  function cambiar(){
-    var pdrs = document.getElementById('file-upload').files[0].name;
-    document.getElementById('info').innerHTML = pdrs;
+  function cambiar(id){
+    var pdrs = document.getElementById('file-upload'+id).files[0].name;
+    var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+    if(!allowedExtensions.exec(pdrs)){
+          document.getElementById('info'+id).innerHTML = "<p style='font-size:12px; color:red;'>Solo puede adjuntar archivos .jpg,jpeg,png o gif*</p>";
+          document.getElementById('file-upload'+id).value="1";
+    }else{
+        //Image preview
+        document.getElementById('info'+id).innerHTML = pdrs;
+        document.getElementById('file-upload'+id).value=pdrs;
+       
+    }
+
 }
 
 </script>
@@ -450,18 +460,18 @@ $(document).on('click', '#editcomments', function(){
                                                                                        
 
                                                                                     <div class="row  pt-0 border " style="background-color:#EDE8E8">
-                                                                                    <div class="col-md-12">
-                                                                                    <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>">
+                                                                                    <div class="col-md-12" style="margin-right:18px;">
+                                                                                    <form method="POST"  action="<?php echo site_url('welcome/publicarComentario') ?>"  enctype="multipart/form-data">
                                                                                      <input type="hidden" name="idpublicacion" value="<?php  echo $row->idpublicacion?>"></input>
-                                                                                     <div class="pb-1"> </div>
+                                                                                     <div class="pb-1" > </div>
                                                                                     <textarea type="text"  rows="2" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control form-control-sm"></textarea>
                                                                                     <div class="pb-2 "> </div>
                                                                                     <button type="submit" class="btn btn-primary btn-sm" > Enviar</button> 
-                                                                                    <label for="file-upload" class="subir">
-                                                                                          <i class="fas fa-cloud-upload-alt"></i> 
+                                                                                    <label  for="file-upload<?php echo $row->idpublicacion?>" class="subir">
+                                                                                          <img  width="25px" src="<?php  echo base_url()?>/images/photo.svg"></img>
                                                                                        </label>
-                                                                                       <input id="file-upload" onchange='cambiar()' type="file" style='display: none;'/>
-                                                                                       <div id="info"></div>
+                                                                                       <input id="file-upload<?php  echo $row->idpublicacion ?>"  onchange="cambiar('<?php echo $row->idpublicacion ?>')" type="file" style='display: none;'/>
+                                                                                       <div id="info<?php echo $row->idpublicacion?>"></div>
                                                                                     <div class="pb-2 "> </div>
 
                                                                                     </form>

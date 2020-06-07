@@ -45,11 +45,16 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
         return  $this->db->insert('publicaciones',$data);
 
     }
-    public function publicarComentario($idpublicacion,$descripcion){
+    public function publicarComentario($idpublicacion,$descripcion,$file,$idrespuesta){
+        $this->idrespuesta=$idrespuesta;
+        $this->file=$file;
         $this->idpublicacion=$idpublicacion;
         $this->descripcion=$descripcion;
         $iduser=$_SESSION['iduser'];
-        $data= [ 
+      
+        $data= [
+            'file'=> $file,
+            'idrespuesta'=> $idrespuesta,
             'iduser'=> $iduser,
             'idpublicacion'=> $idpublicacion,
             'descripcion'=>$descripcion,

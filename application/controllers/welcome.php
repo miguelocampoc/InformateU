@@ -367,10 +367,23 @@ class Welcome extends CI_Controller {
 	}
 	public function publicarComentario()
 	{
+    $this->load->model('functions');
+	$sql="SELECT idrespuesta FROM comentarios  ORDER BY iduser DESC LIMIT 1";
+    $result=$this->db->query($sql);
+	$row=$result->row();
+	$idrespuesta=$row->idrespuesta+1;
 	$this->load->model('insert');
 	$idpublicacion=$this->input->post('idpublicacion');
 	$descripcion=$this->input->post('descripcion');
-	$result=$this->insert->publicarComentario($idpublicacion,$descripcion);
+	$file=$_FILES['filecoment']['name'];
+	if($file==1){
+		$file="NULL";
+	}
+	else{
+	$file=str_replace(' ', '-',$idrespuesta.'-'.$file.'');
+	$this->functions->cargarimagencoment($file);
+	}
+    $result=$this->insert->publicarComentario($idpublicacion,$descripcion,$file,$idrespuesta);
 	if($result){
 	 redirect('welcome');
 	}
