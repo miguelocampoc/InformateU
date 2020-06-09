@@ -147,20 +147,7 @@ $(document).on('click', '#editcomments', function(){
     $(".publicar").css("display", "none");
     $(".cancelar").css("display", "none");
   });
-  function cambiar(id){
-    var pdrs = document.getElementById('file-upload'+id).files[0].name;
-    var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
-    if(!allowedExtensions.exec(pdrs)){
-          document.getElementById('info'+id).innerHTML = "<p style='font-size:12px; color:red;'>Solo puede adjuntar archivos .jpg,jpeg,png o gif*</p>";
-          document.getElementById('file-upload'+id).value="1";
-    }else{
-        //Image preview
-        document.getElementById('info'+id).innerHTML = pdrs;
-        document.getElementById('file-upload'+id).value=pdrs;
-       
-    }
-
-}
+ 
 
 </script>
 
@@ -168,10 +155,10 @@ $(document).on('click', '#editcomments', function(){
 <body id="body">
       <?php $this->load->model('gets')?>
      <?php $row= $this->gets->getTipo()?>
-      <?php $tipo=$row->tipo ?>
-     <?php if($tipo=="administrador"){?>
+      <?php $tipoUser=$row->tipo ?>
+     <?php if($tipoUser=="administrador"){?>
      <?php $this->load->view('navbars/navbaruseradmin'); 
-      }if($tipo=="Normal"){?>
+      }if($tipoUser=="Normal"){?>
      <?php $this->load->view('navbars/navbaruser'); ?>
 
      <?php }?> 
@@ -298,7 +285,7 @@ $(document).on('click', '#editcomments', function(){
                                                                                  </div>
                                                                                  <?php }else{?>
                                                                                 
-                                                                                <?php if($tipo="administrador"){?>
+                                                                                <?php if($tipoUser=="administrador"){?>
                                                                                  <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
                                                                                  <li class="nav-item dropdown">
                                                                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -319,7 +306,7 @@ $(document).on('click', '#editcomments', function(){
                                                                               <div>
                                                                               <form action="<?php echo site_url('welcome/editarpublicacion')?>" method="POST">
                                                                                   <input type="hidden" name="idpublicacion" value="<?php echo $row->idpublicacion?>"> </input>
-                                                                                 <p  sytle="font-size:14px;" class="descripcion" id="descripcion<?php echo $row->idpublicacion?>">   <?php  echo $row->descripcion?> </p>
+                                                                                 <p  sytle="font-size:12px;" class="descripcion" id="descripcion<?php echo $row->idpublicacion?>">   <?php  echo $row->descripcion?> </p>
                                                                                  <textarea  class="textarea form-control form-control-sm"  name="descripcion" id="textarea<?php echo $row->idpublicacion ?>"> <?php  echo $row->descripcion?> </textarea><div class="pb-2"></div>
                                                                                 <div class="row"> 
                                                                                  <div class="col-md-1 col-lg-1">
@@ -394,10 +381,10 @@ $(document).on('click', '#editcomments', function(){
                                                                                        <div class="row bg-white pt-2">
                                                                                            <?php $validation=$this->gets->ValidationComments($row2->idrespuesta,$idpublicacion);?>
                                                                                                    <div class="col-sm-1" >
-                                                                                                   <?php if($row2=="NULL"){?>
-                                                                                                   <div>
+                                                                                                   <?php if($row2->foto=="NULL"){?>
+                                                                                                   <div style="margin-left:20px;">
                                                                                                    <img  width='30px' src="<?php echo base_url()?>/images/fotouser.svg"></img>
-                                                                                                   </div style="margin-left:20px;">
+                                                                                                   </div >
                                                                                                    <?php }else{?>
                                                                                                    <div style="margin-left:20px;">
                                                                                                    <img   width='30px' src="<?php echo base_url()?>/images/<?php  echo $row2->foto ?>"></img>
@@ -420,7 +407,7 @@ $(document).on('click', '#editcomments', function(){
                                                                                                                   </li>
                                                                                                       </div>
                                                                                                    <?php }else{?>
-                                                                                                    <?php if($tipo=="administrador"){ ?>
+                                                                                                    <?php if($tipoUser=="administrador"){ ?>
                                                                                                       <div id="div-dropdown" class="row" style="float:right; 	list-style:none; ">
                                                                                                                <li class="nav-item dropdown">
                                                                                                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -437,14 +424,13 @@ $(document).on('click', '#editcomments', function(){
                                                                                                    </div>
                                                                                           </div> 
                                                                                                 <div class="row bg-white pt-2 mb-0 border-bottom">
-                                                                                                   <div class="col-md-12  " style="text-indent:20px;">
+                                                                                                   <div class="col-md-12  " >
                                                                                                    <form method="POST" action="<?php echo site_url('welcome/EditarComentario') ?>">
                                                                                                    <input type="hidden"  name="idrespuesta" value="<?php echo $row2->idrespuesta?>"> </input>
                                                                                                    <p  style="font-size:14px" class="descripcionComentario" id="descripcionComentario<?php echo $row2->idrespuesta?>"> <?php echo $row2->descripcion ?> </p>
-
                                                                                                 <div style="margin-left:14px"><textarea id="editarComentario<?php echo $row2->idrespuesta?>" name="descripcion" class="form-control form-control-sm editarComentario" ><?php echo $row2->descripcion ?> </textarea></div>
                                                                                                    <div class="row ml-3 mb-2 mt-2 ">
-                                                                                                   
+                                                                                       
                                                                                                     <button   id="sendedit<?php echo $row2->idrespuesta?>"  type="submit" class="btn btn-primary btn-sm sendedit">Enviar</button>
                                                                                                    <button  type="button" id="revert<?php echo $row2->idrespuesta?>"  value="<?php echo $row2->idrespuesta ?>" class="btn btn-alert btn-sm revert" > x Cancelar</button>
                                                                                                    </form>
@@ -466,11 +452,13 @@ $(document).on('click', '#editcomments', function(){
                                                                                      <div class="pb-1" > </div>
                                                                                     <textarea type="text"  rows="2" placeholder="Esciba su comentario aqui" name="descripcion" class="form-control form-control-sm"></textarea>
                                                                                     <div class="pb-2 "> </div>
-                                                                                    <button type="submit" class="btn btn-primary btn-sm" > Enviar</button> 
+                                                                                    <button type="submit" class="btn btn-primary btn-sm" onclick="ValidationFile()" > Enviar</button> 
+                                                                                    <!--
                                                                                     <label  for="file-upload<?php echo $row->idpublicacion?>" class="subir">
                                                                                           <img  width="25px" src="<?php  echo base_url()?>/images/photo.svg"></img>
                                                                                        </label>
-                                                                                       <input id="file-upload<?php  echo $row->idpublicacion ?>"  onchange="cambiar('<?php echo $row->idpublicacion ?>')" type="file" style='display: none;'/>
+                                                                                       !-->
+                                                                                    <!--   <input id="file-upload<?php  /* echo $row->idpublicacion */?>" name="filecoment" onchange="cambiar('<? /* php echo $row->idpublicacion */ ?>')" type="file" style='display: none;'/> !-->
                                                                                        <div id="info<?php echo $row->idpublicacion?>"></div>
                                                                                     <div class="pb-2 "> </div>
 
@@ -497,7 +485,8 @@ $(document).on('click', '#editcomments', function(){
             </div>
      </div> 
      <script src="<?php echo base_url()?>/js/interaciones.js"> </script>
-     <script src="<?php echo base_url()?>/js/script.js"> </script>
+   <!--  <script src="<?php /* echo base_url() */?>/js/script.js"> </script> !-->
+     <!--<script src="<?php /* echo base_url() */?>/js/index.js"> </script>>!-->
 
 
 </body>

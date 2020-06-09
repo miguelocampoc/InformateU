@@ -367,23 +367,29 @@ class Welcome extends CI_Controller {
 	}
 	public function publicarComentario()
 	{
+	$this->load->model('insert');
     $this->load->model('functions');
-	$sql="SELECT idrespuesta FROM comentarios  ORDER BY iduser DESC LIMIT 1";
+	$sql="SELECT idrespuesta FROM comentarios  ORDER BY idrespuesta DESC LIMIT 1";
     $result=$this->db->query($sql);
 	$row=$result->row();
 	$idrespuesta=$row->idrespuesta+1;
-	$this->load->model('insert');
 	$idpublicacion=$this->input->post('idpublicacion');
 	$descripcion=$this->input->post('descripcion');
+	/*
 	$file=$_FILES['filecoment']['name'];
-	if($file==1){
-		$file="NULL";
+	$tipo= pathinfo($file, PATHINFO_EXTENSION);
+	if ($tipo=="PNG" or $tipo=="JPEG" or $tipo=="JPG" or $tipo=="PDF" or $tipo=="DOCX" or $tipo=="xlsx" or $tipo=="png" or $tipo=="jpeg" or $tipo=="jpg" or $tipo=="pdf" or $tipo=="docx" or $tipo=="xlsx"){
+		$file=str_replace(' ', '-',$idrespuesta.'-'.$file.'');
+		$this->functions->cargarimagencoment($file);
+		$result=$this->insert->publicarComentario($idpublicacion,$descripcion,$file,$idrespuesta);
 	}
 	else{
-	$file=str_replace(' ', '-',$idrespuesta.'-'.$file.'');
-	$this->functions->cargarimagencoment($file);
+		*/
+		$file="NULL";
+		$result=$this->insert->publicarComentario($idpublicacion,$descripcion,$file,$idrespuesta);
+		/*
 	}
-    $result=$this->insert->publicarComentario($idpublicacion,$descripcion,$file,$idrespuesta);
+	*/
 	if($result){
 	 redirect('welcome');
 	}

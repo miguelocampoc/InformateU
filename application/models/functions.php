@@ -13,9 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $config['overwrite'] = TRUE;
         $config['file_name'] = 'fotouser'.$iduser;
         $config['allowed_types'] = "jpg|png";
-        $config['max_size'] = "50000";
-        $config['max_width'] = "2000";
-        $config['max_height'] = "2000";
+        $config['max_size'] = "0";
+        $config['max_width'] = "0";
+        $config['max_height'] = "0";
 
         $this->load->library('upload', $config);
         
@@ -69,10 +69,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
       $this->file=$file;
      
-      $mi_archivo ='foto';
+      $mi_archivo ='filecoment';
       $config['upload_path'] = "images/";
       $config['file_name'] = $file;
-      $config['allowed_types'] = "jpg|png|jpeg|xlsx|pdf|docx";
+      $config['allowed_types'] = "jpg|png|jpeg|gif";
       $config['max_size'] = "0";
       $config['max_width'] = "0";
       $config['max_height'] = "0";
