@@ -152,5 +152,12 @@ public function getRowUser()
      return $this->db->query($sql,array($iduser))->row();
 
     }
+    public function getidlatestpost()
+    {
+    $sql="SELECT idpublicacion FROM publicaciones  ORDER BY idpublicacion DESC LIMIT 1";
+    $result= $this->db->query($sql);
+    $row=$result->row();
+    return $row->idpublicacion;
+    }
 }
 ?>

@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $mi_archivo ='foto';
         $config['upload_path'] = "images/";
         $config['file_name'] = $file;
-        $config['allowed_types'] = "jpg|png|jpeg|xlsx|pdf|docx";
+        $config['allowed_types'] = "jpg|png|jpeg|xlsx|pdf|docx|pptx";
         $config['max_size'] = "0";
         $config['max_width'] = "0";
         $config['max_height'] = "0";

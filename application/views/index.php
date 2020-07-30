@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="<?php echo base_url()?>/css/stylenav.css">
     <link rel="stylesheet" href="<?php echo base_url()?>/css/fonts.css">
     <link rel="stylesheet" href="<?php echo base_url()?>/css/estilos.css">
-    <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
+    <link rel="shortcut icon" href="<?php echo base_url("/images/migsedfa.png")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<?php echo base_url()?>/js/main.js"> </script>
 
-    <title>Document</title>
+    <title>Home</title>
     
 </head>
 <style>
@@ -153,7 +153,7 @@ $(document).on('click', '#editcomments', function(){
 
 
 <body id="body">
-      <?php $this->load->model('gets')?>
+      <?php  $this->load->model('gets')?>
      <?php $row= $this->gets->getTipo()?>
       <?php $tipoUser=$row->tipo ?>
      <?php if($tipoUser=="administrador"){?>
@@ -161,7 +161,8 @@ $(document).on('click', '#editcomments', function(){
       }if($tipoUser=="Normal"){?>
      <?php $this->load->view('navbars/navbaruser'); ?>
 
-     <?php }?> 
+     <?php }
+     ?> 
        <br><br><br>
     <div class="container-fluid" >
        <div class="row">
@@ -325,8 +326,8 @@ $(document).on('click', '#editcomments', function(){
                                                                <?php if($archivo!="NULL"){?>
                                                                  <?php $tipo= pathinfo($row->archivo, PATHINFO_EXTENSION); $tipo=strval($tipo)  ?>
                                                                  <?php if($tipo=="jpg"|| $tipo=="png"|| $tipo=="jpeg" ){?>
-                                                               <div class="row bg-white  border pb-1  justify-content-center"  >
-                                                                        <img   src="<?php echo base_url()?>/images/<?php echo $row->archivo?>"  class="img-fluid" alt="Responsive image"> </img>
+                                                               <div class="row bg-white  border pb-1  justify-content-center" >
+                                                                        <img  style="width:100%;"    src="<?php echo base_url()?>/images/<?php echo $row->archivo?>"  class="img-fluid" alt="Responsive image"> </img>
                                                                </div>
                                                                         <?php }else{?>
                                                                            <div class="row bg-white pt-2 pl-3 border pr-3"  >

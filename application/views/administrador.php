@@ -6,12 +6,12 @@
      <?php $this->load->view('libraries/libraries')?>
     <link rel="stylesheet" href="<?php echo base_url()?>/css/stylenav.css">
     <link rel="stylesheet" href="<?php echo base_url()?>/css/estilos.css">
-    <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
+    <link rel="shortcut icon" href="<?php echo base_url("/images/migsedfa.png")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<?php echo base_url()?>/js/main.js"> </script>
     <script src="<?php echo base_url()?>/js/interaciones.js"> </script>
 
-    <title>Document</title>
+    <title>Administrador</title>
 </head>
 <style>
 

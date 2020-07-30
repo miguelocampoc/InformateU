@@ -32,12 +32,14 @@ public function InsertarUsuario($email,$nombre,$apellidos,$usuario,$clave,$Token
     
        
     }
-    public function insertpublicacion($descripcion,$file){
+    public function insertpublicacion($descripcion,$file,$idlastpost){
         $this->load->model('gets');
+        $this->idlastpost=$idlastpost;
         $this->descripcion=$descripcion;
         $this->file=$file;
         $iduser=$_SESSION['iduser'];
         $data= [ 
+            'idpublicacion'=>$idlastpost,
             'iduser'=> $iduser,
             'descripcion'=>$descripcion,
             'archivo'=>$file

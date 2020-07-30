@@ -1,6 +1,10 @@
 
 $(document).ready(main);
- 
+$(document).ready(function(){
+	$('nav').css({
+		left: '-100%'
+	});
+});
 var contador = 0;
  
 function main(){

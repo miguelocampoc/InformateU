@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
 	}
 	public function login()
 	{
+		
     	$this->load->helper('Autenticate');
 		$Auth= Auth();
 		if($Auth){
@@ -218,15 +219,14 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
+		$this->load->model('gets');
 		$this->load->helper('Autenticate');
 		$Auth= Auth();
-		
 		if($Auth){
-			$this->load->model('gets');
 			$data=array(
 				'usuarios'=>$this->gets->getRowUser(),
 				'carreraUser'=>$this->gets->getByidCarrera(),
-				'publicaciones'=>$this->gets->getPublicaciones()
+				'publicaciones'=>$this->gets->getPublicaciones(),
 			);
 			$this->load->view('index',$data);
 		}
@@ -284,13 +284,14 @@ class Welcome extends CI_Controller {
 						}
 			else{
 
-				    $this->load->model('insert');
+					$this->load->model('insert');
+					$idlastpost=$this->gets->getidlatestpost()+1;
 					$descripcion=$this->input->post('descripcion');
 					$file=$_FILES['foto']['name'];
-					$file=str_replace(' ', '-', $file.'');
+					$file=str_replace(' ', '-',$idlastpost.'-'.$file.'');
 					$tipo= pathinfo($file, PATHINFO_EXTENSION);
-					if ($tipo=="PNG" or $tipo=="JPEG" or $tipo=="JPG" or $tipo=="PDF" or $tipo=="DOCX" or $tipo=="xlsx" or $tipo=="png" or $tipo=="jpeg" or $tipo=="jpg" or $tipo=="pdf" or $tipo=="docx" or $tipo=="xlsx"){
-					    $this->insert->insertpublicacion($descripcion,$file);
+					if ($tipo=="PNG" or $tipo=="JPEG" or $tipo=="JPG" or $tipo=="PDF" or $tipo=="DOCX" or $tipo=="XLSX" or $tipo=="PNG" or $tipo=="PPTX" or $tipo=="jpeg" or $tipo=="jpg" or $tipo=="pdf" or $tipo=="docx" or $tipo=="xlsx" or $tipo=="pptx" or $tipo=="png"){
+					    $this->insert->insertpublicacion($descripcion,$file,$idlastpost);
 						$this->functions->cargarimagenpublication($file);
 						$_SESSION['message30'] =  'Su publicacion fue exitosa';
 						  redirect('welcome');
@@ -298,7 +299,7 @@ class Welcome extends CI_Controller {
 					}
 					else if($tipo=="") {
 					$file="NULL";
-					$this->insert->insertpublicacion($descripcion,$file);
+					$this->insert->insertpublicacion($descripcion,$file,$idlastpost);
 					$_SESSION['message30'] =  'Su publicacion fue exitosa';
 
 					redirect('welcome');

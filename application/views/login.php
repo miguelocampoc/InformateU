@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php $this->load->view('libraries/libraries')?>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>/css/estilos.css">
-    <link rel="shortcut icon" href="<?php echo base_url("/images/migsed-favicon.jpeg")?>">
+    <link rel="shortcut icon" href="<?php echo base_url("/images/migsedfa.png")?>">
     <title>Login</title>
 </head>
 <body>
